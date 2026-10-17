@@ -55,20 +55,23 @@ with st.sidebar:
   st.write("🎓 **Cybersecurity Sciences**")
   st.write("🏛️ Al-Qadisiyah University")
   st.divider()
-  st.caption("🔒 Operations Center v6.0")
+  st.caption("🔒 Operations Center v5.5 (AI Defense Edition)")
 
 # نصوص الواجهة بناءً على اللغة المختارة
 if lang == "العربية":
-  t_main_title = "🛡️ غرفة عمليات الأمان السيبراني (SOC)"
+  t_main_title = (
+      "🛡️ غرفة عمليات الأمان السيبراني والذكاء الاصطناعي (SOC & AI)"
+  )
   t_subtitle = (
       "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
   )
   t_desc = (
-      "لوحة تحكم سيبرانية احترافية لإدارة التهديدات، تحليل الحزم، فلاتر"
-      " Wireshark، ورصد الحماية."
+      "لوحة تحكم سيبرانية متقدمة تدمج بين تحليل التهديدات وأنظمة الدفاع"
+      " المدعومة بالذكاء الاصطناعي."
   )
   tabs_names = [
       "💻 نبض النظام",
+      "🤖 ذكاء الدفاع (AI SOC)",
       "💻 لغات البرمجة",
       "🎣 فحص التصيد",
       "💰 صيد الثغرات",
@@ -77,20 +80,20 @@ if lang == "العربية":
       "🖼️ تحليل الصور",
       "🔐 التشفير",
       "🧮 حماية الحسابات",
-      "🦈 فلاتر Wireshark",
       "📜 الأكواد الأمنية",
   ]
 else:
-  t_main_title = "🛡️ Security Operations Center (SOC)"
+  t_main_title = "🛡️ Security Operations Center & AI Defense (SOC)"
   t_subtitle = (
       "System Architect & Lead: **Fadil I. Hussein** [Active Operations]"
   )
   t_desc = (
-      "Professional cyber command center for threat management, packet"
-      " analysis, Wireshark filters, and defense."
+      "Advanced cyber command center integrating threat analysis and AI-driven"
+      " defense systems."
   )
   tabs_names = [
       "💻 System Pulse",
+      "🤖 AI Defense SOC",
       "💻 Code Studio",
       "🎣 Phishing Analyzer",
       "💰 Bug Bounty",
@@ -99,7 +102,6 @@ else:
       "🖼️ Image Forensics",
       "🔐 Cryptography",
       "🧮 Pass Protection",
-      "🦈 Wireshark Filters",
       "📜 Code Library",
   ]
 
@@ -109,7 +111,7 @@ st.markdown(f"### {t_subtitle}")
 st.write(t_desc)
 st.divider()
 
-# التبويبات الرئيسية
+# التبويبات الرئيسية (قبل إضافة Wireshark ولكن مع إضافة تبويب الذكاء الاصطناعي للدفاع)
 tabs = st.tabs(tabs_names)
 
 # ---------------------------------------------------------
@@ -148,14 +150,52 @@ with tabs[0]:
         value=platform.machine(),
     )
     st.metric(
-        label="Encryption Level" if lang == "English" else "مستوى التشفير",
-        value="AES-256",
+        label="AI Guard" if lang == "English" else "درع الذكاء الاصطناعي",
+        value="ACTIVE 🟢",
     )
 
 # ---------------------------------------------------------
-# Tab 2: Multi-Language Studio
+# Tab 2: AI in Cybersecurity (التبويب الجديد المخصص للذكاء الاصطناعي والأمن)
 # ---------------------------------------------------------
 with tabs[1]:
+  st.subheader(
+      "🤖 أنظمة الدفاع والذكاء الاصطناعي في الأمن السيبراني (AI in Cyber Defense)"
+  )
+  st.write(
+      "كيف يتدخل الذكاء الاصطناعي (Machine Learning) لاكتشاف السلوك الشاذ"
+      " والتصدي للتهديدات تلقائياً:"
+  )
+
+  network_traffic_rate = st.slider(
+      "معدل نقل بيانات الشبكة (Network Traffic MB/s):", 10, 1000, 120
+  )
+  failed_logins = st.slider(
+      "عدد محاولات تسجيل الدخول الفاشلة (Failed Logins):", 0, 50, 3
+  )
+
+  if st.button(
+      "تشغيل نموذج الذكاء الاصطناعي لتحليل السلوك (Run AI Anomaly Detection)"
+  ):
+    # محاكاة تحليل ذكاء اصطناعي بسيط بناء على المدخلات
+    if network_traffic_rate > 700 or failed_logins > 20:
+      st.error(
+          "🚨 [AI Alert] رصد نموذج الذكاء الاصطناعي سلوكاً شاذاً! احتمالية هجوم"
+          " سيبراني أو اختراق (Anomaly Detected)."
+      )
+      st.warning(
+          "⚙️ الإجراء التلقائي المتخذ: تم عزل الاتصال المؤقت وتفعيل الحظر"
+          " الفوري (Automated Incident Response)."
+      )
+    else:
+      st.success(
+          "✅ [AI Status] سلوك الشبكة طبيعي. لم يتم رصد أي أنشطة تهديد أو اختراق"
+          " من قبل خوارزميات التعلم الآلي."
+      )
+
+# ---------------------------------------------------------
+# Tab 3: Multi-Language Studio
+# ---------------------------------------------------------
+with tabs[2]:
   st.subheader(
       "💻 مختبر لغات البرمجة والأمن (Multi-Language Security Studio)"
   )
@@ -179,9 +219,9 @@ with tabs[1]:
     st.code("nmap -sV -p 1-65535 127.0.0.1", language="bash")
 
 # ---------------------------------------------------------
-# Tab 3: Phishing Analyzer
+# Tab 4: Phishing Analyzer
 # ---------------------------------------------------------
-with tabs[2]:
+with tabs[3]:
   st.subheader(
       "🎣 أداة تحليل الروابط واكتشاف التصيد (URL & Phishing Detector)"
   )
@@ -194,9 +234,9 @@ with tabs[2]:
     )
 
 # ---------------------------------------------------------
-# Tab 4: Bug Bounty
+# Tab 5: Bug Bounty
 # ---------------------------------------------------------
-with tabs[3]:
+with tabs[4]:
   st.subheader("💰 قائمة فحص صيد الثغرات (Bug Bounty Checklist)")
   target_domain = st.text_input("النطاق المستهدف / Target Domain:", "target.org")
   if st.button("توليد قائمة المهام / Generate Checklist"):
@@ -205,9 +245,9 @@ with tabs[3]:
     st.checkbox("اختبار ثغرات الحقن والسكربتات الخبيثة (XSS)")
 
 # ---------------------------------------------------------
-# Tab 5: Ransomware Defense
+# Tab 6: Ransomware Defense
 # ---------------------------------------------------------
-with tabs[4]:
+with tabs[5]:
   st.subheader("🔒 حماية وحساب بصمات الملفات (Ransomware & Hash Defense)")
   text_sample = st.text_input(
       "اسم الملف أو النص / Filename or Text:", "operation_data.db"
@@ -216,9 +256,9 @@ with tabs[4]:
     st.code(hashlib.sha256(text_sample.encode()).hexdigest())
 
 # ---------------------------------------------------------
-# Tab 6: DDoS Simulation
+# Tab 7: DDoS Simulation
 # ---------------------------------------------------------
-with tabs[5]:
+with tabs[6]:
   st.subheader(
       "⚡ محاكاة تحليل تدفق الشبكة واختبار الضغط (DDoS Traffic Simulation)"
   )
@@ -227,9 +267,9 @@ with tabs[5]:
     st.info("📊 تقرير الحمل: الخادم يتعامل مع التدفق ضمن الحدود الآمنة.")
 
 # ---------------------------------------------------------
-# Tab 7: Image Metadata
+# Tab 8: Image Metadata
 # ---------------------------------------------------------
-with tabs[6]:
+with tabs[7]:
   st.subheader("🖼️ تحليل واستخراج البيانات الخفية للصور (Image Forensics)")
   up_file = st.file_uploader(
       "اختر صورة للفحص / Upload Image:", type=["jpg", "png"]
@@ -240,9 +280,9 @@ with tabs[6]:
     st.success("✅ تم تحليل بنية الصورة واستخراج الخصائص بنجاح.")
 
 # ---------------------------------------------------------
-# Tab 8: Cryptography
+# Tab 9: Cryptography
 # ---------------------------------------------------------
-with tabs[7]:
+with tabs[8]:
   st.subheader("🔐 التشفير الكلاسيكي والمتقدم (Cryptography Suite)")
   txt = st.text_input("النص المراد تشفيره / Plaintext:", "FadilHussein")
   shift = st.slider("مفتاح الإزاحة / Shift Key:", 1, 25, 4)
@@ -255,9 +295,9 @@ with tabs[7]:
   st.code(res)
 
 # ---------------------------------------------------------
-# Tab 9: Passwords & ATO
+# Tab 10: Passwords & ATO
 # ---------------------------------------------------------
-with tabs[8]:
+with tabs[9]:
   st.subheader("🧮 حاسبة حصانة كلمات المرور (Password Strength SOC)")
   pwd = st.text_input(
       "أدخل كلمة المرور / Enter Password:", type="password"
@@ -266,62 +306,6 @@ with tabs[8]:
     st.success(
         "🔒 تقييم الحصانة: يتم فحص تعقيد الرمز لمنع الاستيلاء على الحسابات"
         " (ATO)."
-    )
-
-# ---------------------------------------------------------
-# Tab 10: Wireshark Filters (التبويب الجديد لفلترات واير شارك)
-# ---------------------------------------------------------
-with tabs[9]:
-  st.subheader(
-      "🦈 مرجع فلاتر واير شارك وتحليل الحزم (Wireshark Filters Reference)"
-  )
-  st.write(
-      "أهم فلاتر البحث في Wireshark لتصفية حزم البيانات واكتشاف التهديدات"
-      " بسرعة:"
-  )
-
-  filter_category = st.selectbox(
-      "اختر فئة الفلتر / Select Filter Category:",
-      [
-          "IP & Host Filters (تصفية العناوين)",
-          "Protocol Filters (تصفية البروتوكولات)",
-          "Security & Passwords (الأمن وكلمات المرور)",
-          "TCP & Errors (أخطاء الاتصال)",
-      ],
-  )
-
-  if filter_category == "IP & Host Filters (تصفية العناوين)":
-    st.code("ip.addr == 192.168.1.1          # تصفية لحركة جهاز معين (إرسال واستقبال)")
-    st.code("ip.src == 10.0.0.5              # الحزم القادمة من مصدر محدد فقط")
-    st.code("ip.dst == 192.168.1.50          # الحزم المتجهة نحو وجهة محددة فقط")
-
-  elif filter_category == "Protocol Filters (تصفية البروتوكولات)":
-    st.code("http                          # عرض طلبات واستجابات HTTP فقط")
-    st.code("dns                           # عرض استعلامات وتحويلات DNS فقط")
-    st.code("tcp or udp                    # تصفية الحزم حسب بروتوكول النقل")
-
-  elif filter_category == "Security & Passwords (الأمن وكلمات المرور)":
-    st.code(
-        'http.authorization           # البحث عن بيانات التفويض وكلمات المرور'
-        " عبر HTTP"
-    )
-    st.code(
-        'frame contains "password"     # البحث عن كلمة password داخل أي حزمة'
-        " بيانات"
-    )
-    st.code(
-        'tcp.flags.syn == 1 and tcp.flags.ack == 0  # رصد محاولات فحص أو فتح'
-        " اتصال SYN"
-    )
-
-  else:
-    st.code(
-        "tcp.analysis.retransmission   # رصد إعادة إرسال الحزم (Packet Loss /"
-        " Slow Network)"
-    )
-    st.code(
-        "tcp.analysis.flags            # كشف الشذوذ ومشاكل الاتصال في بروتوكول"
-        " TCP"
     )
 
 # ---------------------------------------------------------
@@ -336,6 +320,6 @@ with tabs[10]:
 
 st.divider()
 st.caption(
-    "Security Operations Center (SOC) © 2026 — Architected by **Fadil I."
-    " Hussein** 🛡️"
+    "Security Operations Center & AI Defense © 2026 — Architected by **Fadil"
+    " I. Hussein** 🛡️"
 )
