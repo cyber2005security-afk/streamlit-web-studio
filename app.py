@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# تخصيص CSS لغرفة عمليات احترافية وعصرية (أزرق داكن ورمادي تقني)
+# تخصيص CSS لغرفة عمليات احترافية وعصرية
 soc_theme_css = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -55,7 +55,7 @@ with st.sidebar:
   st.write("🎓 **Cybersecurity Sciences**")
   st.write("🏛️ Al-Qadisiyah University")
   st.divider()
-  st.caption("🔒 Operations Center v5.0")
+  st.caption("🔒 Operations Center v6.0")
 
 # نصوص الواجهة بناءً على اللغة المختارة
 if lang == "العربية":
@@ -64,8 +64,8 @@ if lang == "العربية":
       "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
   )
   t_desc = (
-      "لوحة تحكم سيبرانية احترافية لإدارة التهديدات، تحليل الحزم، اختبار"
-      " البرمجيات، ورصد الحماية."
+      "لوحة تحكم سيبرانية احترافية لإدارة التهديدات، تحليل الحزم، فلاتر"
+      " Wireshark، ورصد الحماية."
   )
   tabs_names = [
       "💻 نبض النظام",
@@ -77,6 +77,7 @@ if lang == "العربية":
       "🖼️ تحليل الصور",
       "🔐 التشفير",
       "🧮 حماية الحسابات",
+      "🦈 فلاتر Wireshark",
       "📜 الأكواد الأمنية",
   ]
 else:
@@ -86,7 +87,7 @@ else:
   )
   t_desc = (
       "Professional cyber command center for threat management, packet"
-      " analysis, code execution, and defense monitoring."
+      " analysis, Wireshark filters, and defense."
   )
   tabs_names = [
       "💻 System Pulse",
@@ -98,6 +99,7 @@ else:
       "🖼️ Image Forensics",
       "🔐 Cryptography",
       "🧮 Pass Protection",
+      "🦈 Wireshark Filters",
       "📜 Code Library",
   ]
 
@@ -267,9 +269,65 @@ with tabs[8]:
     )
 
 # ---------------------------------------------------------
-# Tab 10: Code Library
+# Tab 10: Wireshark Filters (التبويب الجديد لفلترات واير شارك)
 # ---------------------------------------------------------
 with tabs[9]:
+  st.subheader(
+      "🦈 مرجع فلاتر واير شارك وتحليل الحزم (Wireshark Filters Reference)"
+  )
+  st.write(
+      "أهم فلاتر البحث في Wireshark لتصفية حزم البيانات واكتشاف التهديدات"
+      " بسرعة:"
+  )
+
+  filter_category = st.selectbox(
+      "اختر فئة الفلتر / Select Filter Category:",
+      [
+          "IP & Host Filters (تصفية العناوين)",
+          "Protocol Filters (تصفية البروتوكولات)",
+          "Security & Passwords (الأمن وكلمات المرور)",
+          "TCP & Errors (أخطاء الاتصال)",
+      ],
+  )
+
+  if filter_category == "IP & Host Filters (تصفية العناوين)":
+    st.code("ip.addr == 192.168.1.1          # تصفية لحركة جهاز معين (إرسال واستقبال)")
+    st.code("ip.src == 10.0.0.5              # الحزم القادمة من مصدر محدد فقط")
+    st.code("ip.dst == 192.168.1.50          # الحزم المتجهة نحو وجهة محددة فقط")
+
+  elif filter_category == "Protocol Filters (تصفية البروتوكولات)":
+    st.code("http                          # عرض طلبات واستجابات HTTP فقط")
+    st.code("dns                           # عرض استعلامات وتحويلات DNS فقط")
+    st.code("tcp or udp                    # تصفية الحزم حسب بروتوكول النقل")
+
+  elif filter_category == "Security & Passwords (الأمن وكلمات المرور)":
+    st.code(
+        'http.authorization           # البحث عن بيانات التفويض وكلمات المرور'
+        " عبر HTTP"
+    )
+    st.code(
+        'frame contains "password"     # البحث عن كلمة password داخل أي حزمة'
+        " بيانات"
+    )
+    st.code(
+        'tcp.flags.syn == 1 and tcp.flags.ack == 0  # رصد محاولات فحص أو فتح'
+        " اتصال SYN"
+    )
+
+  else:
+    st.code(
+        "tcp.analysis.retransmission   # رصد إعادة إرسال الحزم (Packet Loss /"
+        " Slow Network)"
+    )
+    st.code(
+        "tcp.analysis.flags            # كشف الشذوذ ومشاكل الاتصال في بروتوكول"
+        " TCP"
+    )
+
+# ---------------------------------------------------------
+# Tab 11: Code Library
+# ---------------------------------------------------------
+with tabs[10]:
   st.subheader("📜 مكتبة الأكواد والأوامر الميدانية (SOC Code Snippets)")
   st.code(
       "import socket\n# TCP socket monitoring script initialized...",
