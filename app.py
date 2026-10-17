@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# تخصيص CSS لغرفة عمليات احترافية وعصرية
+# تخصيص CSS لغرفة عمليات احترافية
 soc_theme_css = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -55,23 +55,19 @@ with st.sidebar:
   st.write("🎓 **Cybersecurity Sciences**")
   st.write("🏛️ Al-Qadisiyah University")
   st.divider()
-  st.caption("🔒 Operations Center v5.5 (AI Defense Edition)")
+  st.caption("🔒 Operations Center Core")
 
 # نصوص الواجهة بناءً على اللغة المختارة
 if lang == "العربية":
-  t_main_title = (
-      "🛡️ غرفة عمليات الأمان السيبراني والذكاء الاصطناعي (SOC & AI)"
-  )
+  t_main_title = "🛡️ غرفة عمليات الأمان السيبراني (SOC)"
   t_subtitle = (
       "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
   )
   t_desc = (
-      "لوحة تحكم سيبرانية متقدمة تدمج بين تحليل التهديدات وأنظمة الدفاع"
-      " المدعومة بالذكاء الاصطناعي."
+      "لوحة تحكم سيبرانية لإدارة التهديدات، تحليل الحزم، ورصد الحماية."
   )
   tabs_names = [
       "💻 نبض النظام",
-      "🤖 ذكاء الدفاع (AI SOC)",
       "💻 لغات البرمجة",
       "🎣 فحص التصيد",
       "💰 صيد الثغرات",
@@ -83,17 +79,16 @@ if lang == "العربية":
       "📜 الأكواد الأمنية",
   ]
 else:
-  t_main_title = "🛡️ Security Operations Center & AI Defense (SOC)"
+  t_main_title = "🛡️ Security Operations Center (SOC)"
   t_subtitle = (
       "System Architect & Lead: **Fadil I. Hussein** [Active Operations]"
   )
   t_desc = (
-      "Advanced cyber command center integrating threat analysis and AI-driven"
-      " defense systems."
+      "Core cyber command center for threat management, packet analysis, and"
+      " defense."
   )
   tabs_names = [
       "💻 System Pulse",
-      "🤖 AI Defense SOC",
       "💻 Code Studio",
       "🎣 Phishing Analyzer",
       "💰 Bug Bounty",
@@ -111,7 +106,7 @@ st.markdown(f"### {t_subtitle}")
 st.write(t_desc)
 st.divider()
 
-# التبويبات الرئيسية (قبل إضافة Wireshark ولكن مع إضافة تبويب الذكاء الاصطناعي للدفاع)
+# التبويبات الرئيسية
 tabs = st.tabs(tabs_names)
 
 # ---------------------------------------------------------
@@ -150,52 +145,14 @@ with tabs[0]:
         value=platform.machine(),
     )
     st.metric(
-        label="AI Guard" if lang == "English" else "درع الذكاء الاصطناعي",
-        value="ACTIVE 🟢",
+        label="Encryption Level" if lang == "English" else "مستوى التشفير",
+        value="AES-256",
     )
 
 # ---------------------------------------------------------
-# Tab 2: AI in Cybersecurity (التبويب الجديد المخصص للذكاء الاصطناعي والأمن)
+# Tab 2: Multi-Language Studio
 # ---------------------------------------------------------
 with tabs[1]:
-  st.subheader(
-      "🤖 أنظمة الدفاع والذكاء الاصطناعي في الأمن السيبراني (AI in Cyber Defense)"
-  )
-  st.write(
-      "كيف يتدخل الذكاء الاصطناعي (Machine Learning) لاكتشاف السلوك الشاذ"
-      " والتصدي للتهديدات تلقائياً:"
-  )
-
-  network_traffic_rate = st.slider(
-      "معدل نقل بيانات الشبكة (Network Traffic MB/s):", 10, 1000, 120
-  )
-  failed_logins = st.slider(
-      "عدد محاولات تسجيل الدخول الفاشلة (Failed Logins):", 0, 50, 3
-  )
-
-  if st.button(
-      "تشغيل نموذج الذكاء الاصطناعي لتحليل السلوك (Run AI Anomaly Detection)"
-  ):
-    # محاكاة تحليل ذكاء اصطناعي بسيط بناء على المدخلات
-    if network_traffic_rate > 700 or failed_logins > 20:
-      st.error(
-          "🚨 [AI Alert] رصد نموذج الذكاء الاصطناعي سلوكاً شاذاً! احتمالية هجوم"
-          " سيبراني أو اختراق (Anomaly Detected)."
-      )
-      st.warning(
-          "⚙️ الإجراء التلقائي المتخذ: تم عزل الاتصال المؤقت وتفعيل الحظر"
-          " الفوري (Automated Incident Response)."
-      )
-    else:
-      st.success(
-          "✅ [AI Status] سلوك الشبكة طبيعي. لم يتم رصد أي أنشطة تهديد أو اختراق"
-          " من قبل خوارزميات التعلم الآلي."
-      )
-
-# ---------------------------------------------------------
-# Tab 3: Multi-Language Studio
-# ---------------------------------------------------------
-with tabs[2]:
   st.subheader(
       "💻 مختبر لغات البرمجة والأمن (Multi-Language Security Studio)"
   )
@@ -219,9 +176,9 @@ with tabs[2]:
     st.code("nmap -sV -p 1-65535 127.0.0.1", language="bash")
 
 # ---------------------------------------------------------
-# Tab 4: Phishing Analyzer
+# Tab 3: Phishing Analyzer
 # ---------------------------------------------------------
-with tabs[3]:
+with tabs[2]:
   st.subheader(
       "🎣 أداة تحليل الروابط واكتشاف التصيد (URL & Phishing Detector)"
   )
@@ -234,9 +191,9 @@ with tabs[3]:
     )
 
 # ---------------------------------------------------------
-# Tab 5: Bug Bounty
+# Tab 4: Bug Bounty
 # ---------------------------------------------------------
-with tabs[4]:
+with tabs[3]:
   st.subheader("💰 قائمة فحص صيد الثغرات (Bug Bounty Checklist)")
   target_domain = st.text_input("النطاق المستهدف / Target Domain:", "target.org")
   if st.button("توليد قائمة المهام / Generate Checklist"):
@@ -245,81 +202,7 @@ with tabs[4]:
     st.checkbox("اختبار ثغرات الحقن والسكربتات الخبيثة (XSS)")
 
 # ---------------------------------------------------------
-# Tab 6: Ransomware Defense
+# Tab 5: Ransomware Defense
 # ---------------------------------------------------------
-with tabs[5]:
-  st.subheader("🔒 حماية وحساب بصمات الملفات (Ransomware & Hash Defense)")
-  text_sample = st.text_input(
-      "اسم الملف أو النص / Filename or Text:", "operation_data.db"
-  )
-  if st.button("توليد بصمة SHA-256 / Generate Hash"):
-    st.code(hashlib.sha256(text_sample.encode()).hexdigest())
-
-# ---------------------------------------------------------
-# Tab 7: DDoS Simulation
-# ---------------------------------------------------------
-with tabs[6]:
-  st.subheader(
-      "⚡ محاكاة تحليل تدفق الشبكة واختبار الضغط (DDoS Traffic Simulation)"
-  )
-  reqs = st.slider("معدل الطلبات في الثانية / Requests per sec:", 100, 10000, 2000)
-  if st.button("تنفيذ اختبار التحمل / Run Test"):
-    st.info("📊 تقرير الحمل: الخادم يتعامل مع التدفق ضمن الحدود الآمنة.")
-
-# ---------------------------------------------------------
-# Tab 8: Image Metadata
-# ---------------------------------------------------------
-with tabs[7]:
-  st.subheader("🖼️ تحليل واستخراج البيانات الخفية للصور (Image Forensics)")
-  up_file = st.file_uploader(
-      "اختر صورة للفحص / Upload Image:", type=["jpg", "png"]
-  )
-  if up_file:
-    img = Image.open(up_file)
-    st.image(img, use_container_width=True)
-    st.success("✅ تم تحليل بنية الصورة واستخراج الخصائص بنجاح.")
-
-# ---------------------------------------------------------
-# Tab 9: Cryptography
-# ---------------------------------------------------------
-with tabs[8]:
-  st.subheader("🔐 التشفير الكلاسيكي والمتقدم (Cryptography Suite)")
-  txt = st.text_input("النص المراد تشفيره / Plaintext:", "FadilHussein")
-  shift = st.slider("مفتاح الإزاحة / Shift Key:", 1, 25, 4)
-  res = "".join(
-      [
-        chr(ord(c) + shift) if c.isalpha() else c
-        for c in txt
-      ]
-  )
-  st.code(res)
-
-# ---------------------------------------------------------
-# Tab 10: Passwords & ATO
-# ---------------------------------------------------------
-with tabs[9]:
-  st.subheader("🧮 حاسبة حصانة كلمات المرور (Password Strength SOC)")
-  pwd = st.text_input(
-      "أدخل كلمة المرور / Enter Password:", type="password"
-  )
-  if pwd:
-    st.success(
-        "🔒 تقييم الحصانة: يتم فحص تعقيد الرمز لمنع الاستيلاء على الحسابات"
-        " (ATO)."
-    )
-
-# ---------------------------------------------------------
-# Tab 11: Code Library
-# ---------------------------------------------------------
-with tabs[10]:
-  st.subheader("📜 مكتبة الأكواد والأوامر الميدانية (SOC Code Snippets)")
-  st.code(
-      "import socket\n# TCP socket monitoring script initialized...",
-      language="python",
-  )
-
-st.divider()
-st.caption(
-    "Security Operations Center & AI Defense © 2026 — Architected by **Fadil"
-    " I. Hussein** 🛡️"
-)
+with tabs[4]:
+  st.subheader("
