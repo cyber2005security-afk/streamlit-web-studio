@@ -84,5 +84,5 @@ if lang == "العربية":
   ]
 else:
   t_main_title = "🛡️ Security Operations Center (SOC)"
-  t_subtitle = (
-      "System Architect & Lead: **Fadil I. Hussein**
+  t_subtitle = "System Architect & Lead: **Fadil I. Hussein**"
+  t_desc =
