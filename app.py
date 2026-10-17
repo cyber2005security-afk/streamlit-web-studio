@@ -126,4 +126,62 @@ with tabs[0]:
 
 with tabs[1]:
   st.subheader("تحليل السلوك بالذكاء الاصطناعي")
-  traffic = st.slider("حركة الشبكة (MB/s):", 10, 
+  traffic = st.slider("حركة الشبكة (MB/s):", 10, 1000, 150)
+  if st.button("تشغيل الفحص"):
+    if traffic > 700:
+      st.error("🚨 تم رصد حركة مشبوهة!")
+    else:
+      st.success("✅ الحالة مستقرة.")
+
+with tabs[2]:
+  st.subheader("فحص الروابط")
+  url = st.text_input("أدخل الرابط:", "https://example.com")
+  if st.button("فحص الرابط"):
+    if "@" in url or "http://" in url:
+      st.warning("⚠️ الرابط مشبوه أو غير مشفر.")
+    else:
+      st.success("✅ الرابط يبدو سليماً.")
+
+with tabs[3]:
+  st.subheader("أمان المصادقة والجلسات")
+  st.info("فحص بروتوكولات الـ 2FA وجلسات المستخدمين.")
+
+with tabs[4]:
+  st.subheader("مختبر لغات البرمجة")
+  st.code("print('SOC Active...')", language="python")
+
+with tabs[5]:
+  st.subheader("صيد الثغرات")
+  st.checkbox("فحص robots.txt")
+
+with tabs[6]:
+  st.subheader("برمجيات الفدية")
+  sample = st.text_input("النص:", "data")
+  if st.button("توليد SHA-256"):
+    st.code(hashlib.sha256(sample.encode()).hexdigest())
+
+with tabs[7]:
+  st.subheader("اختبار الضغط")
+  reqs = st.slider("الطلبات بالثانية:", 100, 10000, 2000)
+
+with tabs[8]:
+  st.subheader("تحليل الصور")
+  img = st.file_uploader("اختر صورة:", type=["jpg", "png"])
+  if img:
+    st.image(img, use_container_width=True)
+
+with tabs[9]:
+  st.subheader("التشفير")
+  txt = st.text_input("النص:", "Fadil")
+  st.code("".join([chr(ord(c) + 2) for c in txt]))
+
+with tabs[10]:
+  st.subheader("حاسبة كلمات المرور")
+  st.text_input("كلمة المرور:", type="password")
+
+with tabs[11]:
+  st.subheader("مكتبة الأكواد")
+  st.code("import socket", language="python")
+
+st.divider()
+st.caption(f"SOC Center © 2026 — User: {st.session_state.username}")
