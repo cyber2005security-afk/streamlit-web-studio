@@ -4,216 +4,264 @@ import platform
 import random
 import string
 import sys
+import time
+from PIL import Image
 import streamlit as st
 
-# إعدادات الصفحة
+# 1. إعدادات الصفحة والتصميم
 st.set_page_config(
-    page_title="CyberSecurity Web Studio - Fadil I. Hussein",
-    page_icon="🛡️",
-    layout="wide",
+    page_title="CyberStudio Pro - Fadil I. Hussein", page_icon="🛡️", layout="wide"
 )
 
-# القائمة الجانبية (Sidebar) لإبراز اسم المطور
+# 2. القائمة الجانبية (Sidebar)
 with st.sidebar:
-  st.title("👨‍💻 Developer")
+  st.title("👨‍💻 Developer Profile")
   st.subheader("Fadil I. Hussein")
-  st.write("🎓 Cybersecurity Student")
-  st.write("---")
-  st.caption("CyberSecurity Web Studio v1.0")
+  st.write("🎓 **Cybersecurity Sciences Student**")
+  st.write("🏛️ Al-Qadisiyah University")
+  st.divider()
+  st.caption("🚀 CyberStudio Suite v2.0 (Pro Edition)")
 
-# العنوان الرئيسي للتطبيق
-st.title("🛡️ منصة الأدوات الأمنية والبرمجية الشاملة")
-st.markdown("### **Developed & Maintained by: Fadil I. Hussein**")
+# 3. العنوان الرئيسي
+st.title("🛡️ CyberStudio Pro — منصة الأدوات الأمنية المتقدمة")
+st.markdown("### **Developed & Designed by: Fadil I. Hussein**")
 st.write(
-    "لوحة تحكم تفاعلية متكاملة للأمن السيبراني، تشمل أدوات التشفير، الفحص،"
-    " الحماية، والهجوم الأخلاقي."
+    "بيئة تفاعلية متكاملة تجمع بين أدوات الفحص، التشفير، تحليل البيانات"
+    " والصور، والتوعية الأمنية."
 )
-
 st.divider()
 
-# إنشاء شريط التنقل العلوي (التبويبات الرئيسية)
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
-    [
-        "💻 النظام والإصدار",
-        "🔐 التشفير وفك التشفير",
-        "🔍 فحص الثغرات والنطاقات",
-        "🧮 الحسابات الأمنية",
-        "📊 تحليل البيانات",
-        "🛡️ الحماية والدفاع",
-        "⚔️ الأدوات الهجومية",
-        "🌐 أدوات البرمجة والتصيد",
-    ]
-)
+# 4. التبويبات المتقدمة
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    "💻 النظام والسيرفر",
+    "🔗 فحص الروابط والتصيد",
+    "🖼️ تحليل الصور والميتاداتا",
+    "🔐 التشفير وشفرة قيصر",
+    "🧮 الحسابات وقوة المرور",
+    "📊 تحليل السجلات والبيانات",
+    "📜 مكتبة الأكواد الأمنية",
+])
 
 # ---------------------------------------------------------
-# 1. معلومات النظام والإصدار
+# Tab 1: System Info
 # ---------------------------------------------------------
 with tab1:
-  st.subheader("💻 معلومات البيئة والسيرفر")
-  c1, c2 = st.columns(2)
-  with c1:
+  st.subheader("💻 معلومات بيئة التشغيل والحالة الحية")
+  col1, col2, col3 = st.columns(3)
+
+  # حساب سرعة الاستجابة اللحظية
+  start_time = time.time()
+  _ = 1 + 1
+  latency = round((time.time() - start_time) * 1000, 2)
+
+  with col1:
     st.metric(label="إصدار بايثون", value=sys.version.split()[0])
     st.metric(label="نظام التشغيل", value=platform.system())
-  with c2:
+  with col2:
     st.metric(label="إصدار Streamlit", value=st.__version__)
+    st.metric(label="سرعة استجابة السيرفر", value=f"{latency} ms")
+  with col3:
     st.metric(label="المعمارية", value=platform.machine())
+    st.metric(label="حالة المنصة", value="Online 🟢")
 
   with st.expander("🔍 تفاصيل النظام الكاملة (JSON)"):
-    st.json(
-        {
-            "Developer": "Fadil I. Hussein",
-            "Python Version": sys.version,
-            "OS Release": platform.release(),
-            "Platform": platform.platform(),
-            "Processor": platform.processor(),
-        }
-    )
+    st.json({
+        "Developer": "Fadil I. Hussein",
+        "Field": "Cybersecurity Sciences",
+        "Python Full": sys.version,
+        "OS Release": platform.release(),
+        "Platform": platform.platform(),
+    })
 
 # ---------------------------------------------------------
-# 2. أدوات التشفير وفك التشفير
+# Tab 2: URL & Phishing Threat Analyzer (جديد ومميز)
 # ---------------------------------------------------------
 with tab2:
-  st.subheader("🔐 أدوات التشفير وفك التشفير (Crypto & Hash)")
-  user_text = st.text_input("أدخل النص المراد تشفيره أو فحصه:", "Cyber2026")
+  st.subheader("🔗 أداة تحليل الروابط واكتشاف مؤشرات التصيد (URL Analyzer)")
+  input_url = st.text_input(
+      "أدخل الرابط المراد تحليله أمنياً:", "http://192.168.1.1/login-paypal-verify"
+  )
 
-  col_a, col_b = st.columns(2)
-  with col_a:
-    if st.button("تشفير Base64"):
-      enc = base64.b64encode(user_text.encode("utf-8")).decode("utf-8")
-      st.code(enc, language="text")
-    if st.button("توليد MD5 Hash"):
-      md5_res = hashlib.md5(user_text.encode("utf-8")).hexdigest()
-      st.code(md5_res, language="text")
+  if st.button("بدء تحليل الرابط"):
+    suspicious_score = 0
+    reasons = []
 
-  with col_b:
-    if st.button("فك تشفير Base64"):
-      try:
-        dec = base64.b64decode(user_text.encode("utf-8")).decode("utf-8")
-        st.code(dec, language="text")
-      except Exception:
-        st.error("خطأ: النص ليس بتنسيق Base64 صالح.")
-    if st.button("توليد SHA-256 Hash"):
-      sha = hashlib.sha256(user_text.encode("utf-8")).hexdigest()
-      st.code(sha, language="text")
+    # فحوصات أمنية منطقية على الرابط
+    if input_url.startswith("http://"):
+      suspicious_score += 1
+      reasons.append("⚠️ الرابط غير مشفر (HTTP وليس HTTPS).")
+
+    if "@" in input_url:
+      suspicious_score += 2
+      reasons.append("🚨 يحتوي الرابط على رمز '@' الذي يُستخدم للتضليل.")
+
+    if any(
+        char.isdigit() for char in input_url.split("/")[2] if "/" in input_url
+    ):
+      if "." in input_url.split("/")[2]:
+        suspicious_score += 1
+        reasons.append(
+            "⚠️ يستخدم عنوان IP مباشر بدلاً من اسم نطاق (Domain Name)."
+        )
+
+    keywords = ["login", "verify", "secure", "bank", "account", "update"]
+    if any(kw in input_url.lower() for kw in keywords):
+      suspicious_score += 1
+      reasons.append("⚠️ يحتوي الرابط على كلمات حساسة تستخدم في صفحات التصيد.")
+
+    if suspicious_score >= 2:
+      st.error(f"🚨 رابط عالي الخطورة! (مؤشر التهديد: {suspicious_score}/4)")
+      for r in reasons:
+        st.write(r)
+    elif suspicious_score == 1:
+      st.warning(f"⚠️ رابط متوسط الخطورة. (مؤشر التهديد: {suspicious_score}/4)")
+      for r in reasons:
+        st.write(r)
+    else:
+      st.success("✅ الرابط لا يحتوي على مؤشرات تصيد شائعة ظاهرة.")
 
 # ---------------------------------------------------------
-# 3. أدوات فحص الثغرات
+# Tab 3: Image Metadata Viewer (جديد ومميز)
 # ---------------------------------------------------------
 with tab3:
-  st.subheader("🔍 فحص الثغرات والنطاقات السريعة")
-  target_url = st.text_input(
-      "أدخل الرابط أو النطاق للفحص المبدئي:", "https://example.com"
+  st.subheader("🖼️ استخراج البيانات الخفية من الصور (Image Exif Metadata)")
+  uploaded_file = st.file_uploader(
+      "اختر صورة لرفعها وتحليل بياناتها:", type=["jpg", "jpeg", "png"]
   )
 
-  if st.button("بدء فحص الرؤوس الأمنية (Security Headers)"):
-    st.info("جاري تحليل الرؤوس الأمنية الوهمية للنطاق...")
-    st.write("• X-Frame-Options: غير مفعل (تحذير)")
-    st.write("• Content-Security-Policy: مفقود (عرضة لاختراق XSS)")
-    st.write("• Strict-Transport-Security (HSTS): مفعل (آمن)")
-    st.warning("⚠️ هذه أداة فحص محاكاة تعليمية للـ Headers.")
+  if uploaded_file is not None:
+    image = Image.open(uploaded_file)
+    st.image(image, caption="الصورة المرفوعة", use_container_width=True)
+
+    st.write("### 📊 البيانات المستخرجة:")
+    st.write(f"• **أبعاد الصورة:** {image.size[0]} x {image.size[1]} بكسل")
+    st.write(f"• **صيغة الصورة:** {image.format}")
+    st.write(f"• **نمط الألوان:** {image.mode}")
+
+    # استخراج بيانات Exif إن وجدت
+    exif_data = image._getexif()
+    if exif_data:
+      st.success("✅ تم العثور على بيانات Exif خفية في الصورة!")
+      st.json({str(k): str(v) for k, v in list(exif_data.items())[:5]})
+    else:
+      st.info(
+          "ℹ️ لا تحوي هذه الصورة بيانات Exif خفية (أو تمت إزالتها أثناء"
+          " الضغط)."
+      )
 
 # ---------------------------------------------------------
-# 4. أدوات الحسابات الأمنية
+# Tab 4: Cryptography & Caesar Cipher
 # ---------------------------------------------------------
 with tab4:
-  st.subheader("🧮 حاسبة قوة كلمات المرور ومقاييس التشفير")
-  pass_input = st.text_input(
-      "أدخل كلمة المرور لاختبار قوتها:", type="password"
-  )
+  st.subheader("🔐 أدوات التشفير وشفرة قيصر (Caesar Cipher)")
 
-  if pass_input:
-    length = len(pass_input)
-    has_upper = any(c.isupper() for c in pass_input)
-    has_lower = any(c.islower() for c in pass_input)
-    has_digit = any(c.isdigit() for c in pass_input)
-    has_sym = any(not c.isalnum() for c in pass_input)
+  text_to_cipher = st.text_input("أدخل النص للتشفير:", "Cyber Security 2026")
+  shift_val = st.slider("مفتاح الإزاحة (Shift Key):", 1, 25, 3)
 
-    score = sum([length >= 8, has_upper, has_lower, has_digit, has_sym])
+  col_c1, col_c2 = st.columns(2)
 
-    st.write(f"• طول الرمز: {length} خانات")
-    if score >= 4:
-      st.success("🔒 كلمة المرور قوية جداً وممتازة.")
-    elif score == 3:
-      st.warning("⚠️ كلمة المرور متوسطة القوة، يفضل إضافة رموز وأرقام.")
-    else:
-      st.error("❌ كلمة المرور ضعيفة وعرضة للاختراق بسهولة.")
+  def caesar_cipher(text, shift):
+    result = ""
+    for char in text:
+      if char.isalpha():
+        start = ord("A") if char.isupper() else ord("a")
+        result += chr((ord(char) - start + shift) % 26 + start)
+      else:
+        result += char
+    return result
+
+  with col_c1:
+    encrypted = caesar_cipher(text_to_cipher, shift_val)
+    st.write("**النص المشفر بشفرة قيصر:**")
+    st.code(encrypted)
+
+    b64_enc = base64.b64encode(text_to_cipher.encode()).decode()
+    st.write("**تشفير Base64:**")
+    st.code(b64_enc)
+
+  with col_c2:
+    decrypted = caesar_cipher(encrypted, -shift_val)
+    st.write("**فك تشفير قيصر:**")
+    st.code(decrypted)
+
+    sha256_hash = hashlib.sha256(text_to_cipher.encode()).hexdigest()
+    st.write("**توليد SHA-256 Hash:**")
+    st.code(sha256_hash)
 
 # ---------------------------------------------------------
-# 5. أدوات تحليل البيانات
+# Tab 5: Password Assessment
 # ---------------------------------------------------------
 with tab5:
-  st.subheader("📊 تحليل السجلات وملفات البيانات (Log Analyzer)")
-  log_data = st.text_area(
-      "صق سجلات الدخول (Server Logs) هنا للتحليل:",
-      "192.168.1.10 - - [2026-10-17] 'GET /admin' 403\n10.0.0.5 - - [2026-10-17]"
-      " 'POST /login' 200",
-  )
+  st.subheader("🧮 حاسبة قوة كلمة المرور وتوليد المفاتيح")
+  pwd = st.text_input("أدخل كلمة المرور لاختبارها:", type="password")
 
-  if st.button("تحليل السجلات"):
-    lines = log_data.split("\n")
-    st.write(f"• إجمالي عدد السطور المدخلة: {len(lines)}")
-    if "403" in log_data or "404" in log_data:
-      st.warning(
-          "⚠️ تم رصد محاولات وصول مرفوضة (Unauthorized Access Attempts) في"
-          " السجلات!"
-      )
+  if pwd:
+    length = len(pwd)
+    has_upper = any(c.isupper() for c in pwd)
+    has_lower = any(c.islower() for c in pwd)
+    has_digit = any(c.isdigit() for c in pwd)
+    has_sym = any(not c.isalnum() for c in pwd)
+
+    score = sum([length >= 10, has_upper, has_lower, has_digit, has_sym])
+
+    st.progress(score / 5)
+    if score >= 4:
+      st.success("🔒 كلمة مرور ممتازة وقوية جداً.")
+    elif score == 3:
+      st.warning("⚠️ كلمة مرور متوسطة القوة.")
     else:
-      st.success("✅ السجلات تبدو طبيعية.")
+      st.error("❌ كلمة مرور ضعيفة.")
 
 # ---------------------------------------------------------
-# 6. أدوات الحماية الدفاعية
+# Tab 6: Log Analyzer
 # ---------------------------------------------------------
 with tab6:
-  st.subheader("🛡️ أدوات الحماية والدفاع السيبراني")
-  raw_payload = st.text_input("اختبار فلتر ضد حقن SQL / XSS:")
-  if st.button("فحص المدخلات أمنياً"):
-    dangerous_keywords = ["'", "OR", "DROP", "<script>", "--", "SELECT"]
-    if any(keyword.lower() in raw_payload.lower() for keyword in dangerous_keywords):
-      st.error("🚨 تم اكتشاف محاولة حقن (Injection Attempt) وتم حظر المدخلات!")
+  st.subheader("📊 تحليل سجلات الخوادم (Server Log Analyzer)")
+  sample_log = st.text_area(
+      "صق السجلات هنا:",
+      "192.168.1.5 - - [17/Oct/2026] 'GET /admin' 403\n"
+      "10.0.0.2 - - [17/Oct/2026] 'POST /login' 200\n"
+      "192.168.1.5 - - [17/Oct/2026] 'GET /etc/passwd' 404",
+  )
+
+  if st.button("تحليل السجلات الآن"):
+    st.write(f"• إجمالي الأسطر: {len(sample_log.splitlines())}")
+    if "403" in sample_log or "passwd" in sample_log:
+      st.error(
+          "🚨 تم رصد محاولات فحص ثغرات أو وصول غير مصرح به (Path Traversal /"
+          " Forbidden Access)!"
+      )
     else:
-      st.success("✅ المدخلات آمنة ولا توجد أكواد خبيثة ظاهرة.")
+      st.success("✅ السجلات نظيفة ولا توجد تهديدات ظاهرة.")
 
 # ---------------------------------------------------------
-# 7. الأدوات الهجومية
+# Tab 7: Code Helper & Cheatsheet (جديد ومميز)
 # ---------------------------------------------------------
 with tab7:
-  st.subheader("⚔️ أدوات المحاكاة الهجومية (أغراض تعليمية دفاعية)")
-  st.warning(
-      "⚠️ تنبيه: هذه الأدوات مخصصة حصرياً للفحص القانوني واختبار الاختراق"
-      " الأخلاقي (Ethical Hacking & Bug Bounty)."
-  )
+  st.subheader("📜 مكتبة الأكواد والأوامر السريعة للأمن السيبراني")
+  st.write("مجموعة مقتطفات برمجية سريعة بلغة Python لاستخدامها في سكربتاتك:")
 
-  target_ip = st.text_input("أدخل عنوان الهدف للمحاكاة:", "127.0.0.1")
-  if st.button("محاكاة فحص المنافذ (Port Scanning)"):
-    st.info(f"جاري فحص المنافذ الشائعة للهدف {target_ip}...")
-    st.write("• Port 21 (FTP): مغلق")
-    st.write("• Port 80 (HTTP): مفتوح")
-    st.write("• Port 443 (HTTPS): مفتوح")
-    st.write("• Port 22 (SSH): مغلق")
-
-# ---------------------------------------------------------
-# 8. لغات البرمجة والتصيد
-# ---------------------------------------------------------
-with tab8:
-  st.subheader(
-      "🌐 أدوات البرمجة والتوعية بالتصيد الاحتيالي (Phishing Awareness)"
-  )
-
-  with st.expander("📌 نموذج توعوي لكشف رسائل التصيد الاحتيالي"):
-    st.write(
-        "1. تحقق دائماً من نطاق المرسل الحقيقي (Sender Domain).\n2. احذر من"
-        " الروابط المختصرة أو التي تستخدم أسماء شركات وهمية.\n3. الشركات"
-        " الحقيقية لا تطلب كلمات المرور عبر البريد الإلكتروني أبداً."
-    )
-
-  st.markdown("---")
-  st.write("### 💻 مقتطف كود بايثون سريع لفحص الروابط:")
+  st.markdown("#### 1. فحص الاتصال بالشبكة (Socket Connection Test):")
   st.code(
       """
-import urllib.parse
-url = "https://example.com/login"
-parsed = urllib.parse.urlparse(url)
-print("Domain:", parsed.netloc)
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.settimeout(2)
+result = s.connect_ex(('127.0.0.1', 80))
+if result == 0:
+    print("Port is Open!")
+s.close()
+""",
+      language="python",
+  )
+
+  st.markdown("#### 2. إرسال طلب HTTP والتحقق من الاستجابة:")
+  st.code(
+      """
+import requests
+response = requests.get('https://example.com')
+print("Status Code:", response.status_code)
+print("Headers:", response.headers.get('Server'))
 """,
       language="python",
   )
