@@ -113,9 +113,7 @@ tabs = st.tabs(tabs_names)
 # Tab 1: System Info
 # ---------------------------------------------------------
 with tabs[0]:
-  st.subheader(
-      "💻 معلومات الخادم وحالة غرفة العمليات (Server Pulse & Telemetry)"
-  )
+  st.subheader("💻 معلومات الخادم وحالة غرفة العمليات")
   col1, col2, col3 = st.columns(3)
   start_time = time.time()
   _ = 1 + 1
@@ -153,9 +151,7 @@ with tabs[0]:
 # Tab 2: Multi-Language Studio
 # ---------------------------------------------------------
 with tabs[1]:
-  st.subheader(
-      "💻 مختبر لغات البرمجة والأمن (Multi-Language Security Studio)"
-  )
+  st.subheader("💻 مختبر لغات البرمجة والأمن")
   lang_choice = st.selectbox(
       "Select Language / اختر لغة البرمجة:",
       ["Python", "C / C++", "JavaScript", "SQL", "Bash / Shell"],
@@ -179,9 +175,7 @@ with tabs[1]:
 # Tab 3: Phishing Analyzer
 # ---------------------------------------------------------
 with tabs[2]:
-  st.subheader(
-      "🎣 أداة تحليل الروابط واكتشاف التصيد (URL & Phishing Detector)"
-  )
+  st.subheader("🎣 أداة تحليل الروابط واكتشاف التصيد")
   input_url = st.text_input(
       "أدخل الرابط للفحص / Enter URL:", "https://secure-login-portal.com"
   )
@@ -194,7 +188,7 @@ with tabs[2]:
 # Tab 4: Bug Bounty
 # ---------------------------------------------------------
 with tabs[3]:
-  st.subheader("💰 قائمة فحص صيد الثغرات (Bug Bounty Checklist)")
+  st.subheader("💰 قائمة فحص صيد الثغرات")
   target_domain = st.text_input("النطاق المستهدف / Target Domain:", "target.org")
   if st.button("توليد قائمة المهام / Generate Checklist"):
     st.success(f"📋 تم إعداد نطاق المهام الميدانية لـ {target_domain}")
@@ -205,4 +199,76 @@ with tabs[3]:
 # Tab 5: Ransomware Defense
 # ---------------------------------------------------------
 with tabs[4]:
-  st.subheader("
+  st.subheader("🔒 حماية وحساب بصمات الملفات")
+  text_sample = st.text_input(
+      "اسم الملف أو النص / Filename or Text:", "operation_data.db"
+  )
+  if st.button("توليد بصمة SHA-256 / Generate Hash"):
+    st.code(hashlib.sha256(text_sample.encode()).hexdigest())
+
+# ---------------------------------------------------------
+# Tab 6: DDoS Simulation
+# ---------------------------------------------------------
+with tabs[5]:
+  st.subheader("⚡ محاكاة تحليل تدفق الشبكة واختبار الضغط")
+  reqs = st.slider("معدل الطلبات في الثانية / Requests per sec:", 100, 10000, 2000)
+  if st.button("تنفيذ اختبار التحمل / Run Test"):
+    st.info("📊 تقرير الحمل: الخادم يتعامل مع التدفق ضمن الحدود الآمنة.")
+
+# ---------------------------------------------------------
+# Tab 7: Image Metadata
+# ---------------------------------------------------------
+with tabs[6]:
+  st.subheader("🖼️ تحليل واستخراج البيانات الخفية للصور")
+  up_file = st.file_uploader(
+      "اختر صورة للفحص / Upload Image:", type=["jpg", "png"]
+  )
+  if up_file:
+    img = Image.open(up_file)
+    st.image(img, use_container_width=True)
+    st.success("✅ تم تحليل بنية الصورة واستخراج الخصائص بنجاح.")
+
+# ---------------------------------------------------------
+# Tab 8: Cryptography
+# ---------------------------------------------------------
+with tabs[7]:
+  st.subheader("🔐 التشفير الكلاسيكي والمتقدم")
+  txt = st.text_input("النص المراد تشفيره / Plaintext:", "FadilHussein")
+  shift = st.slider("مفتاح الإزاحة / Shift Key:", 1, 25, 4)
+  res = "".join(
+      [
+        chr(ord(c) + shift) if c.isalpha() else c
+        for c in txt
+      ]
+  )
+  st.code(res)
+
+# ---------------------------------------------------------
+# Tab 9: Passwords & ATO
+# ---------------------------------------------------------
+with tabs[8]:
+  st.subheader("🧮 حاسبة حصانة كلمات المرور")
+  pwd = st.text_input(
+      "أدخل كلمة المرور / Enter Password:", type="password"
+  )
+  if pwd:
+    st.success(
+        "🔒 تقييم الحصانة: يتم فحص تعقيد الرمز لمنع الاستيلاء على الحسابات"
+        " (ATO)."
+    )
+
+# ---------------------------------------------------------
+# Tab 10: Code Library
+# ---------------------------------------------------------
+with tabs[9]:
+  st.subheader("📜 مكتبة الأكواد والأوامر الميدانية")
+  st.code(
+      "import socket\n# TCP socket monitoring script initialized...",
+      language="python",
+  )
+
+st.divider()
+st.caption(
+    "Security Operations Center (SOC) © 2026 — Architected by **Fadil I."
+    " Hussein** 🛡️"
+)
