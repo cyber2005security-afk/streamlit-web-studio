@@ -5,183 +5,206 @@ import time
 from PIL import Image
 import streamlit as st
 
+# 1. إعدادات الصفحة والتصميم الاحترافي لغرفة العمليات (SOC Theme)
 st.set_page_config(
     page_title="SOC Operations Center - Fadil I. Hussein",
     page_icon="🛡️",
     layout="wide",
 )
 
-cyber_css = """
+# تخصيص CSS لغرفة عمليات احترافية
+soc_theme_css = """
 <style>
-    [data-testid="stAppViewContainer"] {
-        background: linear-gradient(135deg, #090d16 0%, #111827 100%);
-        color: #f3f4f6;
-    }
-    [data-testid="stSidebar"] {
-        background-color: #0f172a;
-        border-right: 1px solid #1e293b;
-    }
-    h1, h2, h3 {
-        color: #38bdf8 !important;
-    }
-    .stButton>button {
-        background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
-        color: #ffffff;
-        border-radius: 8px;
-        font-weight: bold;
-    }
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg, #090d16 0%, #111827 100%);
+    color: #f8fafc;
+}
+[data-testid="stSidebar"] {
+    background-color: #1e293b;
+    border-right: 1px solid #334155;
+}
+h1, h2, h3 {
+    color: #38bdf8 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.stButton>button {
+    background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
+    color: #ffffff;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    font-weight: bold;
+}
+.stButton>button:hover {
+    background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+    border-color: #60a5fa;
+}
 </style>
 """
-st.markdown(cyber_css, unsafe_allow_html=True)
+st.markdown(soc_theme_css, unsafe_allow_html=True)
 
+# إدارة حالة تسجيل الدخول (Session State)
 if "logged_in" not in st.session_state:
   st.session_state.logged_in = False
 if "username" not in st.session_state:
   st.session_state.username = ""
-if "role" not in st.session_state:
-  st.session_state.role = ""
+if "google_email" not in st.session_state:
+  st.session_state.google_email = ""
 
+# 2. القائمة الجانبية (Language, Login & Profile)
 with st.sidebar:
-  st.title("🌐 Language")
-  lang = st.selectbox("اختر اللغة:", ["العربية", "English"])
+  st.title("🌐 Language / اللغة")
+  lang = st.selectbox("اختر لغة العرض / Choose Language:", ["العربية", "English"])
   st.divider()
-  st.subheader("👤 تسجيل الدخول")
 
+  # بوابة تسجيل الدخول
+  st.subheader("👤 بوابة المستخدم (Login)")
   if not st.session_state.logged_in:
-    u_name = st.text_input("اسم المستخدم:")
-    u_pass = st.text_input("كلمة المرور:", type="password")
-    u_role = st.selectbox("الصلاحية:", ["SOC Analyst", "Admin"])
+    input_user = st.text_input("اسم المستخدم (Username):")
+    input_pass = st.text_input("كلمة المرور (Password):", type="password")
 
-    if st.button("دخول"):
-      if u_name.strip():
+    if st.button("تسجيل الدخول / Login"):
+      if input_user.strip() != "":
         st.session_state.logged_in = True
-        st.session_state.username = u_name
-        st.session_state.role = u_role
+        st.session_state.username = input_user
         st.rerun()
       else:
-        st.warning("الرجاء إدخال اسم المستخدم.")
+        st.warning("⚠️ يرجى إدخال اسم المستخدم.")
+
+    st.markdown("---")
+    if st.button("🔴 تسجيل الدخول عبر Google"):
+      st.session_state.logged_in = True
+      st.session_state.username = "Fadil I. Hussein"
+      st.session_state.google_email = "fadil.hussein@gmail.com"
+      st.rerun()
   else:
-    st.success(f"مرحباً: {st.session_state.username}")
-    if st.button("خروج"):
+    st.success(f"مرحباً، **{st.session_state.username}**!")
+    if st.session_state.google_email:
+      st.info(f"📧 Google: {st.session_state.google_email}")
+    if st.button("تسجيل الخروج / Logout"):
       st.session_state.logged_in = False
       st.session_state.username = ""
+      st.session_state.google_email = ""
       st.rerun()
 
   st.divider()
-  st.write("Fadil I. Hussein")
-  st.write("Cybersecurity Sciences")
+  st.title("🛡️ SOC Profile")
+  st.subheader("Fadil I. Hussein")
+  st.write("🎓 **Cybersecurity Sciences**")
+  st.write("🏛️ Al-Qadisiyah University")
+  st.divider()
+  st.caption("🔒 Operations Center Core")
 
+# حماية التطبيق (التحقق من تسجيل الدخول)
 if not st.session_state.logged_in:
-  st.warning("⚠️ يرجى تسجيل الدخول من القائمة الجانبية للوصول إلى لوحة التحكم.")
+  st.warning(
+      "⚠️ يرجى تسجيل الدخول أو استخدام المصادقة عبر القائمة الجانبية (Sidebar)"
+      " للوصول إلى غرفة العمليات."
+  )
   st.stop()
 
+# نصوص الواجهة بناءً على اللغة المختارة
 if lang == "العربية":
-  st.title("🛡️ غرفة عمليات الأمان السيبراني (SOC)")
-  st.markdown(
-      f"المشرف: **Fadil I. Hussein** | المستخدم: **{st.session_state.username}**"
+  t_main_title = "🛡️ غرفة عمليات الأمان السيبراني (SOC)"
+  t_subtitle = (
+      f"مهندس النظام والمشرف: **Fadil I. Hussein** | المستخدم النشط:"
+      f" **{st.session_state.username}**"
+  )
+  t_desc = (
+      "لوحة تحكم سيبرانية متكاملة لإدارة التهديدات، تحليل الحزم، ورصد الحماية."
   )
   tabs_names = [
-      "نبض النظام",
-      "الذكاء الاصطناعي",
-      "فحص الروابط",
-      "المصادقة",
-      "لغات البرمجة",
-      "صيد الثغرات",
-      "برمجيات الفدية",
-      "ضغط الشبكة",
-      "تحليل الصور",
-      "التشفير",
-      "كلمات المرور",
-      "الأكواد",
+      "💻 نبض النظام",
+      "🤖 تحليل الذكاء الاصطناعي",
+      "💻 لغات البرمجة",
+      "🎣 فحص التصيد",
+      "🌐 بيانات Google OAuth",
+      "💰 صيد الثغرات",
+      "🔒 برمجيات الفدية",
+      "⚡ ضغط الشبكة",
+      "🖼️ تحليل الصور",
+      "🔐 التشفير",
+      "🧮 حماية الحسابات",
+      "📜 الأكواد الأمنية",
   ]
 else:
-  st.title("🛡️ Security Operations Center (SOC)")
-  st.markdown(
-      f"Lead: **Fadil I. Hussein** | User: **{st.session_state.username}**"
+  t_main_title = "🛡️ Security Operations Center (SOC)"
+  t_subtitle = (
+      f"System Architect & Lead: **Fadil I. Hussein** | Active User:"
+      f" **{st.session_state.username}**"
+  )
+  t_desc = (
+      "Comprehensive cyber command center for threat management, packet"
+      " analysis, and defense."
   )
   tabs_names = [
-      "System Pulse",
-      "AI Analysis",
-      "URL Scanner",
-      "Auth Security",
-      "Code Studio",
-      "Bug Bounty",
-      "Ransomware",
-      "Network Stress",
-      "Image Forensics",
-      "Cryptography",
-      "Pass Protection",
-      "Code Library",
+      "💻 System Pulse",
+      "🤖 AI Security Analysis",
+      "💻 Code Studio",
+      "🎣 Phishing Analyzer",
+      "🌐 Google OAuth Data",
+      "💰 Bug Bounty",
+      "🔒 Ransomware Defense",
+      "⚡ Network Stress",
+      "🖼️ Image Forensics",
+      "🔐 Cryptography",
+      "🧮 Pass Protection",
+      "📜 Code Library",
   ]
 
+# 3. العنوان الرئيسي
+st.title(t_main_title)
+st.markdown(f"### {t_subtitle}")
+st.write(t_desc)
 st.divider()
+
+# التبويبات الرئيسية الأفقية
 tabs = st.tabs(tabs_names)
 
+# ---------------------------------------------------------
+# Tab 1: System Info
+# ---------------------------------------------------------
 with tabs[0]:
-  st.subheader("معلومات الخادم")
-  c1, c2, c3 = st.columns(3)
-  c1.metric("إصدار بايثون", sys.version.split()[0])
-  c2.metric("حالة النظام", "ONLINE [SECURE]")
-  c3.metric("مستوى التشفير", "AES-256")
+  st.subheader("💻 معلومات الخادم وحالة غرفة العمليات")
+  col1, col2, col3 = st.columns(3)
+  start_time = time.time()
+  _ = 1 + 1
+  latency = round((time.time() - start_time) * 1000, 2)
 
+  with col1:
+    st.metric(
+        label="Python Version" if lang == "English" else "إصدار بايثون",
+        value=sys.version.split()[0],
+    )
+    st.metric(
+        label="OS Platform" if lang == "English" else "نظام التشغيل",
+        value=platform.system(),
+    )
+  with col2:
+    st.metric(
+        label="Server Latency" if lang == "English" else "سرعة استجابة الخادم",
+        value=f"{latency} ms",
+    )
+    st.metric(
+        label="Status" if lang == "English" else "حالة النظام",
+        value="ONLINE [SECURE]",
+    )
+  with col3:
+    st.metric(
+        label="CPU Architecture" if lang == "English" else "معمارية المعالج",
+        value=platform.machine(),
+    )
+    st.metric(
+        label="Encryption Level" if lang == "English" else "مستوى التشفير",
+        value="AES-256",
+    )
+
+# ---------------------------------------------------------
+# Tab 2: AI Security Analysis
+# ---------------------------------------------------------
 with tabs[1]:
-  st.subheader("تحليل السلوك بالذكاء الاصطناعي")
-  traffic = st.slider("حركة الشبكة (MB/s):", 10, 1000, 150)
-  if st.button("تشغيل الفحص"):
-    if traffic > 700:
-      st.error("🚨 تم رصد حركة مشبوهة!")
-    else:
-      st.success("✅ الحالة مستقرة.")
-
-with tabs[2]:
-  st.subheader("فحص الروابط")
-  url = st.text_input("أدخل الرابط:", "https://example.com")
-  if st.button("فحص الرابط"):
-    if "@" in url or "http://" in url:
-      st.warning("⚠️ الرابط مشبوه أو غير مشفر.")
-    else:
-      st.success("✅ الرابط يبدو سليماً.")
-
-with tabs[3]:
-  st.subheader("أمان المصادقة والجلسات")
-  st.info("فحص بروتوكولات الـ 2FA وجلسات المستخدمين.")
-
-with tabs[4]:
-  st.subheader("مختبر لغات البرمجة")
-  st.code("print('SOC Active...')", language="python")
-
-with tabs[5]:
-  st.subheader("صيد الثغرات")
-  st.checkbox("فحص robots.txt")
-
-with tabs[6]:
-  st.subheader("برمجيات الفدية")
-  sample = st.text_input("النص:", "data")
-  if st.button("توليد SHA-256"):
-    st.code(hashlib.sha256(sample.encode()).hexdigest())
-
-with tabs[7]:
-  st.subheader("اختبار الضغط")
-  reqs = st.slider("الطلبات بالثانية:", 100, 10000, 2000)
-
-with tabs[8]:
-  st.subheader("تحليل الصور")
-  img = st.file_uploader("اختر صورة:", type=["jpg", "png"])
-  if img:
-    st.image(img, use_container_width=True)
-
-with tabs[9]:
-  st.subheader("التشفير")
-  txt = st.text_input("النص:", "Fadil")
-  st.code("".join([chr(ord(c) + 2) for c in txt]))
-
-with tabs[10]:
-  st.subheader("حاسبة كلمات المرور")
-  st.text_input("كلمة المرور:", type="password")
-
-with tabs[11]:
-  st.subheader("مكتبة الأكواد")
-  st.code("import socket", language="python")
-
-st.divider()
-st.caption(f"SOC Center © 2026 — User: {st.session_state.username}")
+  st.subheader(
+      "🤖 أداة تحليل السلوك والتهديدات بالذكاء الاصطناعي (AI Threat Detection)"
+  )
+  st.write(
+      "تستخدم هذه الأداة خوارزميات التعلم الآلي لتحليل سلوك الشبكة واكتشاف"
+      " الهجمات غير المعروفة تلق
