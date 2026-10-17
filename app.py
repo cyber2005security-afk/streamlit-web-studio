@@ -2,6 +2,7 @@ import base64
 import hashlib
 import platform
 import random
+import re
 import string
 import sys
 import time
@@ -55,22 +56,24 @@ with st.sidebar:
   st.write("🎓 **Cybersecurity Sciences**")
   st.write("🏛️ Al-Qadisiyah University")
   st.divider()
-  st.caption("🔒 Operations Center Core")
+  st.caption("🔒 Operations Center Core v7.5")
 
-# نصوص الواجهة بناءً على اللغة المختارة (العنوان الرئيسي نظيف وبدون ذكر AI)
+# نصوص الواجهة بناءً على اللغة المختارة
 if lang == "العربية":
   t_main_title = "🛡️ غرفة عمليات الأمان السيبراني (SOC)"
   t_subtitle = (
       "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
   )
   t_desc = (
-      "لوحة تحكم سيبرانية متكاملة لإدارة التهديدات، تحليل الحزم، ورصد الحماية."
+      "لوحة تحكم سيبرانية متقدمة لإدارة التهديدات، فحص الروابط، وأمان"
+      " المصادقة."
   )
   tabs_names = [
       "💻 نبض النظام",
       "🤖 تحليل الذكاء الاصطناعي",
+      "🔍 فحص الروابط الشامل",
+      "🔐 أمان المصادقة والجلسات",
       "💻 لغات البرمجة",
-      "🎣 فحص التصيد",
       "💰 صيد الثغرات",
       "🔒 برمجيات الفدية",
       "⚡ ضغط الشبكة",
@@ -82,226 +85,4 @@ if lang == "العربية":
 else:
   t_main_title = "🛡️ Security Operations Center (SOC)"
   t_subtitle = (
-      "System Architect & Lead: **Fadil I. Hussein** [Active Operations]"
-  )
-  t_desc = (
-      "Comprehensive cyber command center for threat management, packet"
-      " analysis, and defense."
-  )
-  tabs_names = [
-      "💻 System Pulse",
-      "🤖 AI Security Analysis",
-      "💻 Code Studio",
-      "🎣 Phishing Analyzer",
-      "💰 Bug Bounty",
-      "🔒 Ransomware Defense",
-      "⚡ Network Stress",
-      "🖼️ Image Forensics",
-      "🔐 Cryptography",
-      "🧮 Pass Protection",
-      "📜 Code Library",
-  ]
-
-# 3. العنوان الرئيسي
-st.title(t_main_title)
-st.markdown(f"### {t_subtitle}")
-st.write(t_desc)
-st.divider()
-
-# التبويبات الرئيسية
-tabs = st.tabs(tabs_names)
-
-# ---------------------------------------------------------
-# Tab 1: System Info
-# ---------------------------------------------------------
-with tabs[0]:
-  st.subheader("💻 معلومات الخادم وحالة غرفة العمليات")
-  col1, col2, col3 = st.columns(3)
-  start_time = time.time()
-  _ = 1 + 1
-  latency = round((time.time() - start_time) * 1000, 2)
-
-  with col1:
-    st.metric(
-        label="Python Version" if lang == "English" else "إصدار بايثون",
-        value=sys.version.split()[0],
-    )
-    st.metric(
-        label="OS Platform" if lang == "English" else "نظام التشغيل",
-        value=platform.system(),
-    )
-  with col2:
-    st.metric(
-        label="Server Latency" if lang == "English" else "سرعة استجابة الخادم",
-        value=f"{latency} ms",
-    )
-    st.metric(
-        label="Status" if lang == "English" else "حالة النظام",
-        value="ONLINE [SECURE]",
-    )
-  with col3:
-    st.metric(
-        label="CPU Architecture" if lang == "English" else "معمارية المعالج",
-        value=platform.machine(),
-    )
-    st.metric(
-        label="Encryption Level" if lang == "English" else "مستوى التشفير",
-        value="AES-256",
-    )
-
-# ---------------------------------------------------------
-# Tab 2: AI Security Analysis (أداة الذكاء الاصطناعي ضمن الأدوات)
-# ---------------------------------------------------------
-with tabs[1]:
-  st.subheader(
-      "🤖 أداة تحليل السلوك والتهديدات بالذكاء الاصطناعي (AI Threat Detection)"
-  )
-  st.write(
-      "تستخدم هذه الأداة خوارزميات التعلم الآلي لتحليل سلوك الشبكة واكتشاف"
-      " الهجمات غير المعروفة تلقائياً."
-  )
-
-  net_traffic = st.slider(
-      "معدل نقل بيانات الشبكة (Network Traffic MB/s):", 10, 1000, 150
-  )
-  failed_attempts = st.slider("محاولات الدخول الفاشلة المتكررة:", 0, 50, 2)
-
-  if st.button("تشغيل فحص الذكاء الاصطناعي / Run AI Analysis"):
-    if net_traffic > 700 or failed_attempts > 15:
-      st.error(
-          "🚨 [AI Alert] تم رصد سلوك شبكي شاذ! احتمالية تعرض النظام لهجوم"
-          " سيبراني (Anomaly Detected)."
-      )
-      st.warning(
-          "⚙️ الإجراء التلقائي: تم عزل الاتصال المشبوه وحظر المصدر مؤقتاً."
-      )
-    else:
-      st.success(
-          "✅ [AI Status] حالة الأمان مستقرة. سلوك الشبكة طبيعي ضمن النطاق الآمن."
-      )
-
-# ---------------------------------------------------------
-# Tab 3: Multi-Language Studio
-# ---------------------------------------------------------
-with tabs[2]:
-  st.subheader("💻 مختبر لغات البرمجة والأمن")
-  lang_choice = st.selectbox(
-      "Select Language / اختر لغة البرمجة:",
-      ["Python", "C / C++", "JavaScript", "SQL", "Bash / Shell"],
-  )
-  if lang_choice == "Python":
-    st.code("print('SOC Operations Python Module Active...')", language="python")
-  elif lang_choice == "C / C++":
-    st.code(
-        '#include <iostream>\nusing namespace std;\nint main() { cout <<'
-        ' "C++ Memory Safe"; }',
-        language="cpp",
-    )
-  elif lang_choice == "SQL":
-    st.code(
-        "SELECT * FROM security_logs WHERE threat_level > 3;", language="sql"
-    )
-  else:
-    st.code("nmap -sV -p 1-65535 127.0.0.1", language="bash")
-
-# ---------------------------------------------------------
-# Tab 4: Phishing Analyzer
-# ---------------------------------------------------------
-with tabs[3]:
-  st.subheader("🎣 أداة تحليل الروابط واكتشاف التصيد")
-  input_url = st.text_input(
-      "أدخل الرابط للفحص / Enter URL:", "https://secure-login-portal.com"
-  )
-  if st.button("فحص الرابط / Analyze URL"):
-    st.warning(
-        "⚠️ تحذير تكتيكي: تم رصد مؤشرات محتملة لهندسة اجتماعية أو روابط تضليل."
-    )
-
-# ---------------------------------------------------------
-# Tab 5: Bug Bounty
-# ---------------------------------------------------------
-with tabs[4]:
-  st.subheader("💰 قائمة فحص صيد الثغرات")
-  target_domain = st.text_input("النطاق المستهدف / Target Domain:", "target.org")
-  if st.button("توليد قائمة المهام / Generate Checklist"):
-    st.success(f"📋 تم إعداد نطاق المهام الميدانية لـ {target_domain}")
-    st.checkbox("فحص ملفات الروبوتات والمسارات المخفية (robots.txt)")
-    st.checkbox("اختبار ثغرات الحقن والسكربتات الخبيثة (XSS)")
-
-# ---------------------------------------------------------
-# Tab 6: Ransomware Defense
-# ---------------------------------------------------------
-with tabs[5]:
-  st.subheader("🔒 حماية وحساب بصمات الملفات")
-  text_sample = st.text_input(
-      "اسم الملف أو النص / Filename or Text:", "operation_data.db"
-  )
-  if st.button("توليد بصمة SHA-256 / Generate Hash"):
-    st.code(hashlib.sha256(text_sample.encode()).hexdigest())
-
-# ---------------------------------------------------------
-# Tab 7: DDoS Simulation
-# ---------------------------------------------------------
-with tabs[6]:
-  st.subheader("⚡ محاكاة تحليل تدفق الشبكة واختبار الضغط")
-  reqs = st.slider("معدل الطلبات في الثانية / Requests per sec:", 100, 10000, 2000)
-  if st.button("تنفيذ اختبار التحمل / Run Test"):
-    st.info("📊 تقرير الحمل: الخادم يتعامل مع التدفق ضمن الحدود الآمنة.")
-
-# ---------------------------------------------------------
-# Tab 8: Image Metadata
-# ---------------------------------------------------------
-with tabs[7]:
-  st.subheader("🖼️ تحليل واستخراج البيانات الخفية للصور")
-  up_file = st.file_uploader(
-      "اختر صورة للفحص / Upload Image:", type=["jpg", "png"]
-  )
-  if up_file:
-    img = Image.open(up_file)
-    st.image(img, use_container_width=True)
-    st.success("✅ تم تحليل بنية الصورة واستخراج الخصائص بنجاح.")
-
-# ---------------------------------------------------------
-# Tab 9: Cryptography
-# ---------------------------------------------------------
-with tabs[8]:
-  st.subheader("🔐 التشفير الكلاسيكي والمتقدم")
-  txt = st.text_input("النص المراد تشفيره / Plaintext:", "FadilHussein")
-  shift = st.slider("مفتاح الإزاحة / Shift Key:", 1, 25, 4)
-  res = "".join(
-      [
-        chr(ord(c) + shift) if c.isalpha() else c
-        for c in txt
-      ]
-  )
-  st.code(res)
-
-# ---------------------------------------------------------
-# Tab 10: Passwords & ATO
-# ---------------------------------------------------------
-with tabs[9]:
-  st.subheader("🧮 حاسبة حصانة كلمات المرور")
-  pwd = st.text_input(
-      "أدخل كلمة المرور / Enter Password:", type="password"
-  )
-  if pwd:
-    st.success(
-        "🔒 تقييم الحصانة: يتم فحص تعقيد الرمز لمنع الاستيلاء على الحسابات"
-        " (ATO)."
-    )
-
-# ---------------------------------------------------------
-# Tab 11: Code Library
-# ---------------------------------------------------------
-with tabs[10]:
-  st.subheader("📜 مكتبة الأكواد والأوامر الميدانية")
-  st.code(
-      "import socket\n# TCP socket monitoring script initialized...",
-      language="python",
-  )
-
-st.divider()
-st.caption(
-    "Security Operations Center (SOC) © 2026 — Architected by **Fadil I."
-    " Hussein** 🛡️"
-)
+      "System Architect & Lead: **Fadil I. Hussein**
