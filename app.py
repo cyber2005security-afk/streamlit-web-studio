@@ -1,7 +1,5 @@
 import base64
 import hashlib
-import json
-import os
 import platform
 import random
 import string
@@ -10,13 +8,28 @@ import streamlit as st
 
 # إعدادات الصفحة
 st.set_page_config(
-    page_title="CyberSecurity Web Studio", page_icon="🛡️", layout="wide"
+    page_title="CyberSecurity Web Studio - Fadil I. Hussein",
+    page_icon="🛡️",
+    layout="wide",
 )
 
+# القائمة الجانبية (Sidebar) لإبراز اسم المطور
+with st.sidebar:
+  st.title("👨‍💻 Developer")
+  st.subheader("Fadil I. Hussein")
+  st.write("🎓 Cybersecurity Student")
+  st.write("---")
+  st.caption("CyberSecurity Web Studio v1.0")
+
+# العنوان الرئيسي للتطبيق
 st.title("🛡️ منصة الأدوات الأمنية والبرمجية الشاملة")
+st.markdown("### **Developed & Maintained by: Fadil I. Hussein**")
 st.write(
-    "لوحة تحكم تفاعلية متكاملة للأمن السيبراني، تشمل أدوات التشفير، الفحص، الحماية، والهجوم الأخلاقي."
+    "لوحة تحكم تفاعلية متكاملة للأمن السيبراني، تشمل أدوات التشفير، الفحص،"
+    " الحماية، والهجوم الأخلاقي."
 )
+
+st.divider()
 
 # إنشاء شريط التنقل العلوي (التبويبات الرئيسية)
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
@@ -45,6 +58,17 @@ with tab1:
     st.metric(label="إصدار Streamlit", value=st.__version__)
     st.metric(label="المعمارية", value=platform.machine())
 
+  with st.expander("🔍 تفاصيل النظام الكاملة (JSON)"):
+    st.json(
+        {
+            "Developer": "Fadil I. Hussein",
+            "Python Version": sys.version,
+            "OS Release": platform.release(),
+            "Platform": platform.platform(),
+            "Processor": platform.processor(),
+        }
+    )
+
 # ---------------------------------------------------------
 # 2. أدوات التشفير وفك التشفير
 # ---------------------------------------------------------
@@ -62,7 +86,7 @@ with tab2:
       st.code(md5_res, language="text")
 
   with col_b:
-    if st.button("فك تشفري Base64"):
+    if st.button("فك تشفير Base64"):
       try:
         dec = base64.b64decode(user_text.encode("utf-8")).decode("utf-8")
         st.code(dec, language="text")
@@ -73,7 +97,7 @@ with tab2:
       st.code(sha, language="text")
 
 # ---------------------------------------------------------
-# 3. أدوات فحص الثغرات (Vulnerability Scanning Tools)
+# 3. أدوات فحص الثغرات
 # ---------------------------------------------------------
 with tab3:
   st.subheader("🔍 فحص الثغرات والنطاقات السريعة")
@@ -83,13 +107,13 @@ with tab3:
 
   if st.button("بدء فحص الرؤوس الأمنية (Security Headers)"):
     st.info("جاري تحليل الرؤوس الأمنية الوهمية للنطاق...")
-    st.write("• X-Frame-Options: غير مفعيل (تحذير)")
+    st.write("• X-Frame-Options: غير مفعل (تحذير)")
     st.write("• Content-Security-Policy: مفقود (عرضة لاختراق XSS)")
     st.write("• Strict-Transport-Security (HSTS): مفعل (آمن)")
     st.warning("⚠️ هذه أداة فحص محاكاة تعليمية للـ Headers.")
 
 # ---------------------------------------------------------
-# 4. أدوات الحسابات الأمنية (Security Calculations)
+# 4. أدوات الحسابات الأمنية
 # ---------------------------------------------------------
 with tab4:
   st.subheader("🧮 حاسبة قوة كلمات المرور ومقاييس التشفير")
@@ -115,13 +139,14 @@ with tab4:
       st.error("❌ كلمة المرور ضعيفة وعرضة للاختراق بسهولة.")
 
 # ---------------------------------------------------------
-# 5. أدوات تحليل البيانات (Data Analytics & Logs)
+# 5. أدوات تحليل البيانات
 # ---------------------------------------------------------
 with tab5:
   st.subheader("📊 تحليل السجلات وملفات البيانات (Log Analyzer)")
   log_data = st.text_area(
       "صق سجلات الدخول (Server Logs) هنا للتحليل:",
-      "192.168.1.10 - - [2026-10-17] 'GET /admin' 403\n10.0.0.5 - - [2026-10-17] 'POST /login' 200",
+      "192.168.1.10 - - [2026-10-17] 'GET /admin' 403\n10.0.0.5 - - [2026-10-17]"
+      " 'POST /login' 200",
   )
 
   if st.button("تحليل السجلات"):
@@ -136,15 +161,10 @@ with tab5:
       st.success("✅ السجلات تبدو طبيعية.")
 
 # ---------------------------------------------------------
-# 6. أدوات الحماية الدفاعية (Blue Team / Defense)
+# 6. أدوات الحماية الدفاعية
 # ---------------------------------------------------------
 with tab6:
   st.subheader("🛡️ أدوات الحماية والدفاع السيبراني")
-  st.write(
-      "هنا يتم وضع قواعد الجدار الناري الوهمية، وفلاتر حماية مدخلات المستخدم"
-      " (Sanitization)."
-  )
-
   raw_payload = st.text_input("اختبار فلتر ضد حقن SQL / XSS:")
   if st.button("فحص المدخلات أمنياً"):
     dangerous_keywords = ["'", "OR", "DROP", "<script>", "--", "SELECT"]
@@ -154,12 +174,12 @@ with tab6:
       st.success("✅ المدخلات آمنة ولا توجد أكواد خبيثة ظاهرة.")
 
 # ---------------------------------------------------------
-# 7. الأدوات الهجومية (Red Team / Offensive Simulation)
+# 7. الأدوات الهجومية
 # ---------------------------------------------------------
 with tab7:
   st.subheader("⚔️ أدوات المحاكاة الهجومية (أغراض تعليمية دفاعية)")
   st.warning(
-      "⚠️ تنبيه: هذه الأدوات مخصصة حصرياً للفحص القانوني واختبار الاختبار"
+      "⚠️ تنبيه: هذه الأدوات مخصصة حصرياً للفحص القانوني واختبار الاختراق"
       " الأخلاقي (Ethical Hacking & Bug Bounty)."
   )
 
@@ -172,13 +192,11 @@ with tab7:
     st.write("• Port 22 (SSH): مغلق")
 
 # ---------------------------------------------------------
-# 8. لغات البرمجة ومحاكاة التصيد التوعوي (Phishing Awareness)
+# 8. لغات البرمجة والتصيد
 # ---------------------------------------------------------
 with tab8:
-  st.subheader("🌐 أدوات البرمجة والتوعية بالتصيد الاحتيالي (Phishing Awareness)")
-  st.write(
-      "في مجال الأمن السيبراني، دراسة هندسة التصيد (Phishing) تتم بهدف"
-      " **التوعية والدفاع** وليس للاختراق الضار."
+  st.subheader(
+      "🌐 أدوات البرمجة والتوعية بالتصيد الاحتيالي (Phishing Awareness)"
   )
 
   with st.expander("📌 نموذج توعوي لكشف رسائل التصيد الاحتيالي"):
@@ -202,6 +220,5 @@ print("Domain:", parsed.netloc)
 
 st.divider()
 st.caption(
-    "CyberSecurity Web Studio — تم التطوير بغرض البحث العلمي والأمني والأكاديمي"
-    " 🚀"
+    "All rights reserved © 2026 — Created & Developed by **Fadil I. Hussein** 🚀"
 )
