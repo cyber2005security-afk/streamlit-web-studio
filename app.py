@@ -8,202 +8,242 @@ import time
 from PIL import Image
 import streamlit as st
 
-# 1. إعدادات الصفحة والتصميم المرعب والمظلم
+# 1. إعدادات الصفحة والتصميم الاحترافي لغرفة العمليات (SOC Theme)
 st.set_page_config(
-    page_title="CyberStudio Dark - Fadil I. Hussein",
-    page_icon="💀",
+    page_title="SOC Operations Center - Fadil I. Hussein",
+    page_icon="🛡️",
     layout="wide",
 )
 
-# حقن أكواد CSS لتغيير الخلفية إلى نظام مظلم ومرعب (Dark Hacker Theme)
-dark_theme_css = """
+# تخصيص CSS لغرفة عمليات احترافية وعصرية (أزرق داكن ورمادي تقني)
+soc_theme_css = """
 <style>
-/* خلفية التطبيق العامة باللون الأسود الداكن مع تأثير أحمر/أخضر مرعب */
 [data-testid="stAppViewContainer"] {
-    background-color: #050505;
-    background-image: radial-gradient(circle at 50% 30%, #1a0000 0%, #000000 90%);
-    color: #e0e0e0;
+    background-color: #0f172a;
+    color: #f8fafc;
 }
-
-/* الشريط الجانبي الداكن */
 [data-testid="stSidebar"] {
-    background-color: #0a0a0a;
-    border-right: 1px solid #ff0033;
+    background-color: #1e293b;
+    border-right: 1px solid #334155;
 }
-
-/* تنسيق العناوين والنصوص لتكون بارزة ومرعبة */
 h1, h2, h3 {
-    color: #ff3333 !important;
-    font-family: 'Courier New', monospace;
+    color: #38bdf8 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-/* الأزرار بتصميم سيبراني خطير */
 .stButton>button {
-    background-color: #1a0000;
-    color: #ff3333;
-    border: 1px solid #ff3333;
-    border-radius: 4px;
+    background-color: #1d4ed8;
+    color: #ffffff;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
     font-weight: bold;
 }
 .stButton>button:hover {
-    background-color: #ff3333;
-    color: #000000;
+    background-color: #2563eb;
+    border-color: #60a5fa;
 }
 </style>
 """
-st.markdown(dark_theme_css, unsafe_allow_html=True)
+st.markdown(soc_theme_css, unsafe_allow_html=True)
 
-# 2. القائمة الجانبية (Sidebar)
+# 2. القائمة الجانبية واختيار اللغة (Language Selector)
 with st.sidebar:
-  st.title("💀 Dark Room")
+  st.title("🌐 Language / اللغة")
+  lang = st.selectbox("اختر لغة العرض / Choose Language:", ["العربية", "English"])
+  st.divider()
+  st.title("🛡️ SOC Profile")
   st.subheader("Fadil I. Hussein")
   st.write("🎓 **Cybersecurity Sciences**")
   st.write("🏛️ Al-Qadisiyah University")
   st.divider()
-  st.caption("⚠️ Restricted Access [Level 5]")
+  st.caption("🔒 Operations Center v5.0")
+
+# نصوص الواجهة بناءً على اللغة المختارة
+if lang == "العربية":
+  t_main_title = "🛡️ غرفة عمليات الأمان السيبراني (SOC)"
+  t_subtitle = (
+      "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
+  )
+  t_desc = (
+      "لوحة تحكم سيبرانية احترافية لإدارة التهديدات، تحليل الحزم، اختبار"
+      " البرمجيات، ورصد الحماية."
+  )
+  tabs_names = [
+      "💻 نبض النظام",
+      "💻 لغات البرمجة",
+      "🎣 فحص التصيد",
+      "💰 صيد الثغرات",
+      "🔒 برمجيات الفدية",
+      "⚡ ضغط الشبكة",
+      "🖼️ تحليل الصور",
+      "🔐 التشفير",
+      "🧮 حماية الحسابات",
+      "📜 الأكواد الأمنية",
+  ]
+else:
+  t_main_title = "🛡️ Security Operations Center (SOC)"
+  t_subtitle = (
+      "System Architect & Lead: **Fadil I. Hussein** [Active Operations]"
+  )
+  t_desc = (
+      "Professional cyber command center for threat management, packet"
+      " analysis, code execution, and defense monitoring."
+  )
+  tabs_names = [
+      "💻 System Pulse",
+      "💻 Code Studio",
+      "🎣 Phishing Analyzer",
+      "💰 Bug Bounty",
+      "🔒 Ransomware Defense",
+      "⚡ Network Stress",
+      "🖼️ Image Forensics",
+      "🔐 Cryptography",
+      "🧮 Pass Protection",
+      "📜 Code Library",
+  ]
 
 # 3. العنوان الرئيسي
-st.title("💀 CyberStudio Pro — غرفة العمليات المظلمة")
-st.markdown(
-    "### **System Architect & Controller: Fadil I. Hussein** [CLASSIFIED]"
-)
-st.write(
-    "منصة أمنية محاطة بالغموض، تعمل في الظل لمراقبة التهديدات، التشفير،"
-    " والتحليل البرمجي."
-)
+st.title(t_main_title)
+st.markdown(f"### {t_subtitle}")
+st.write(t_desc)
 st.divider()
 
-# 4. التبويبات المتقدمة
-(
-    tab1,
-    tab2,
-    tab3,
-    tab4,
-    tab5,
-    tab6,
-    tab7,
-    tab8,
-    tab9,
-    tab10,
-) = st.tabs([
-    "💻 نبض السيرفر",
-    "💻 لغات الظل",
-    "🎣 شباك التصيد",
-    "💰 صيد الثغرات",
-    "🔒 حصن البيانات",
-    "⚡ عاصفة DDoS",
-    "🖼️ عيون الصور",
-    "🔐 التشفير الأبدي",
-    "🧮 حارس البوابات",
-    "📜 الأكواد السرية",
-])
+# التبويبات الرئيسية
+tabs = st.tabs(tabs_names)
 
 # ---------------------------------------------------------
 # Tab 1: System Info
 # ---------------------------------------------------------
-with tab1:
-  st.subheader("💻 مراقبة النبض الحقيقي للخادم")
+with tabs[0]:
+  st.subheader(
+      "💻 معلومات الخادم وحالة غرفة العمليات (Server Pulse & Telemetry)"
+  )
   col1, col2, col3 = st.columns(3)
   start_time = time.time()
   _ = 1 + 1
   latency = round((time.time() - start_time) * 1000, 2)
 
   with col1:
-    st.metric(label="إصدار بايثون", value=sys.version.split()[0])
-    st.metric(label="نظام التشغيل", value=platform.system())
+    st.metric(
+        label="Python Version" if lang == "English" else "إصدار بايثون",
+        value=sys.version.split()[0],
+    )
+    st.metric(
+        label="OS Platform" if lang == "English" else "نظام التشغيل",
+        value=platform.system(),
+    )
   with col2:
-    st.metric(label="سرعة الاستجابة الظلية", value=f"{latency} ms")
-    st.metric(label="حالة السيرفر", value="ONLINE [SECURE]")
+    st.metric(
+        label="Server Latency" if lang == "English" else "سرعة استجابة الخادم",
+        value=f"{latency} ms",
+    )
+    st.metric(
+        label="Status" if lang == "English" else "حالة النظام",
+        value="ONLINE [SECURE]",
+    )
   with col3:
-    st.metric(label="المعمارية", value=platform.machine())
-    st.metric(label="مستوى التشفير", value="AES-256")
+    st.metric(
+        label="CPU Architecture" if lang == "English" else "معمارية المعالج",
+        value=platform.machine(),
+    )
+    st.metric(
+        label="Encryption Level" if lang == "English" else "مستوى التشفير",
+        value="AES-256",
+    )
 
 # ---------------------------------------------------------
 # Tab 2: Multi-Language Studio
 # ---------------------------------------------------------
-with tab2:
-  st.subheader("💻 لغات الظل والشيفرات البرمجية")
+with tabs[1]:
+  st.subheader(
+      "💻 مختبر لغات البرمجة والأمن (Multi-Language Security Studio)"
+  )
   lang_choice = st.selectbox(
-      "اختر أداة الشيفرة:",
+      "Select Language / اختر لغة البرمجة:",
       ["Python", "C / C++", "JavaScript", "SQL", "Bash / Shell"],
   )
   if lang_choice == "Python":
-    st.code(
-        "print('Executing payload in dark mode...')", language="python"
-    )
+    st.code("print('SOC Operations Python Module Active...')", language="python")
   elif lang_choice == "C / C++":
     st.code(
         '#include <iostream>\nusing namespace std;\nint main() { cout <<'
-        ' "Memory Dump Active"; }',
+        ' "C++ Memory Safe"; }',
         language="cpp",
     )
   elif lang_choice == "SQL":
     st.code(
-        "SELECT * FROM users WHERE access_level = 'ADMIN';", language="sql"
+        "SELECT * FROM security_logs WHERE threat_level > 3;", language="sql"
     )
   else:
-    st.code("nmap -A -T4 127.0.0.1", language="bash")
+    st.code("nmap -sV -p 1-65535 127.0.0.1", language="bash")
 
 # ---------------------------------------------------------
-# Tab 3: Phishing & URL Analyzer
+# Tab 3: Phishing Analyzer
 # ---------------------------------------------------------
-with tab3:
-  st.subheader("🎣 كاشف الروابط المظلمة والتصيد")
-  input_url = st.text_input(
-      "أدخل الرابط المشبوه للفحص:", "http://dark-web-login-verify.com"
+with tabs[2]:
+  st.subheader(
+      "🎣 أداة تحليل الروابط واكتشاف التصيد (URL & Phishing Detector)"
   )
-  if st.button("فحص النوايا الخفية"):
-    st.error("🚨 تحذير: الرابط يحمل مؤشرات هندسة اجتماعية عالية الخطورة!")
+  input_url = st.text_input(
+      "أدخل الرابط للفحص / Enter URL:", "https://secure-login-portal.com"
+  )
+  if st.button("فحص الرابط / Analyze URL"):
+    st.warning(
+        "⚠️ تحذير تكتيكي: تم رصد مؤشرات محتملة لهندسة اجتماعية أو روابط تضليل."
+    )
 
 # ---------------------------------------------------------
 # Tab 4: Bug Bounty
 # ---------------------------------------------------------
-with tab4:
-  st.subheader("💰 خريطة صيد الثغرات الخفية")
-  target_domain = st.text_input("النطاق الهدف:", "target-system.gov")
-  if st.button("توليد قائمة الاختراق الأخلاقي"):
-    st.success(f"📋 تم تهيئة أهداف الفحص لـ {target_domain}")
-    st.checkbox("فحص الثغرات الحرجة (Critical Vulnerabilities)")
-    st.checkbox("البحث عن أخطاء التوثيق (Broken Authentication)")
+with tabs[3]:
+  st.subheader("💰 قائمة فحص صيد الثغرات (Bug Bounty Checklist)")
+  target_domain = st.text_input("النطاق المستهدف / Target Domain:", "target.org")
+  if st.button("توليد قائمة المهام / Generate Checklist"):
+    st.success(f"📋 تم إعداد نطاق المهام الميدانية لـ {target_domain}")
+    st.checkbox("فحص ملفات الروبوتات والمسارات المخفية (robots.txt)")
+    st.checkbox("اختبار ثغرات الحقن والسكربتات الخبيثة (XSS)")
 
 # ---------------------------------------------------------
 # Tab 5: Ransomware Defense
 # ---------------------------------------------------------
-with tab5:
-  st.subheader("🔒 حصن التشفير وبرمجيات الفدية")
-  text_sample = st.text_input("النص المراد بصمه:", "secret_operation_file")
-  if st.button("توليد بصمة الهاش القاتلة"):
+with tabs[4]:
+  st.subheader("🔒 حماية وحساب بصمات الملفات (Ransomware & Hash Defense)")
+  text_sample = st.text_input(
+      "اسم الملف أو النص / Filename or Text:", "operation_data.db"
+  )
+  if st.button("توليد بصمة SHA-256 / Generate Hash"):
     st.code(hashlib.sha256(text_sample.encode()).hexdigest())
 
 # ---------------------------------------------------------
 # Tab 6: DDoS Simulation
 # ---------------------------------------------------------
-with tab6:
-  st.subheader("⚡ محاكاة فيضان الطلبات (DDoS Storm)")
-  reqs = st.slider("معدل تدفق الطلبات:", 100, 10000, 3000)
-  if st.button("إطلاق المحاكاة"):
-    st.error("🚨 السيرفر يتعرض لضغط هائل! خطر الانهيار وشيك.")
+with tabs[5]:
+  st.subheader(
+      "⚡ محاكاة تحليل تدفق الشبكة واختبار الضغط (DDoS Traffic Simulation)"
+  )
+  reqs = st.slider("معدل الطلبات في الثانية / Requests per sec:", 100, 10000, 2000)
+  if st.button("تنفيذ اختبار التحمل / Run Test"):
+    st.info("📊 تقرير الحمل: الخادم يتعامل مع التدفق ضمن الحدود الآمنة.")
 
 # ---------------------------------------------------------
 # Tab 7: Image Metadata
 # ---------------------------------------------------------
-with tab7:
-  st.subheader("🖼️ عيون الصور والبيانات الدفينة")
+with tabs[6]:
+  st.subheader("🖼️ تحليل واستخراج البيانات الخفية للصور (Image Forensics)")
   up_file = st.file_uploader(
-      "ارفع الصورة لاستخراج الأسرار:", type=["jpg", "png"]
+      "اختر صورة للفحص / Upload Image:", type=["jpg", "png"]
   )
   if up_file:
     img = Image.open(up_file)
     st.image(img, use_container_width=True)
-    st.success("✅ تم استخراج بصمة الصورة بنجاح.")
+    st.success("✅ تم تحليل بنية الصورة واستخراج الخصائص بنجاح.")
 
 # ---------------------------------------------------------
 # Tab 8: Cryptography
 # ---------------------------------------------------------
-with tab8:
-  st.subheader("🔐 غرفة التشفير الأبدي وشفرة قيصر")
-  txt = st.text_input("النص السري:", "FadilHussein")
-  shift = st.slider("مفتاح الإزاحة السري:", 1, 25, 5)
+with tabs[7]:
+  st.subheader("🔐 التشفير الكلاسيكي والمتقدم (Cryptography Suite)")
+  txt = st.text_input("النص المراد تشفيره / Plaintext:", "FadilHussein")
+  shift = st.slider("مفتاح الإزاحة / Shift Key:", 1, 25, 4)
   res = "".join(
       [
         chr(ord(c) + shift) if c.isalpha() else c
@@ -215,21 +255,29 @@ with tab8:
 # ---------------------------------------------------------
 # Tab 9: Passwords & ATO
 # ---------------------------------------------------------
-with tab9:
-  st.subheader("🧮 حارس البوابات واختبار الحسابات")
-  pwd = st.text_input("أدخل كلمة المرور السرية:", type="password")
+with tabs[8]:
+  st.subheader("🧮 حاسبة حصانة كلمات المرور (Password Strength SOC)")
+  pwd = st.text_input(
+      "أدخل كلمة المرور / Enter Password:", type="password"
+  )
   if pwd:
-    st.warning("⚠️ جاري تحليل حصانة كلمة المرور ضد هجمات القوة العمياء.")
+    st.success(
+        "🔒 تقييم الحصانة: يتم فحص تعقيد الرمز لمنع الاستيلاء على الحسابات"
+        " (ATO)."
+    )
 
 # ---------------------------------------------------------
-# Tab 10: Code Helper
+# Tab 10: Code Library
 # ---------------------------------------------------------
-with tab10:
-  st.subheader("📜 مكتبة الأكواد السرية")
-  st.code("import socket\n# Socket payload initialized...", language="python")
+with tabs[9]:
+  st.subheader("📜 مكتبة الأكواد والأوامر الميدانية (SOC Code Snippets)")
+  st.code(
+      "import socket\n# TCP socket monitoring script initialized...",
+      language="python",
+  )
 
 st.divider()
 st.caption(
-    "All rights reserved © 2026 — Secure Dark Terminal by **Fadil I. Hussein**"
-    " 💀"
+    "Security Operations Center (SOC) © 2026 — Architected by **Fadil I."
+    " Hussein** 🛡️"
 )
