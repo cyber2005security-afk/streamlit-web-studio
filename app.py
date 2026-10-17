@@ -1,12 +1,9 @@
-
 import platform
 import sys
 import streamlit as st
 
-# إعدادات الصفحة الأساسية
-st.set_page_title_config(
-    page_title="تطبيقي الأول - Streamlit", page_icon="🚀", layout="centered"
-)
+# إعدادات الصفحة الصحيحة
+st.set_page_config(page_title="تطبيقي الأول - Streamlit", page_icon="🚀")
 
 # عنوان رئيسي للتطبيق
 st.title("🚀 أهلاً بك في تطبيقي التفاعلي الأول")
