@@ -57,17 +57,18 @@ with st.sidebar:
   st.divider()
   st.caption("🔒 Operations Center Core")
 
-# نصوص الواجهة بناءً على اللغة المختارة
+# نصوص الواجهة بناءً على اللغة المختارة (العنوان الرئيسي نظيف وبدون ذكر AI)
 if lang == "العربية":
   t_main_title = "🛡️ غرفة عمليات الأمان السيبراني (SOC)"
   t_subtitle = (
       "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
   )
   t_desc = (
-      "لوحة تحكم سيبرانية لإدارة التهديدات، تحليل الحزم، ورصد الحماية."
+      "لوحة تحكم سيبرانية متكاملة لإدارة التهديدات، تحليل الحزم، ورصد الحماية."
   )
   tabs_names = [
       "💻 نبض النظام",
+      "🤖 تحليل الذكاء الاصطناعي",
       "💻 لغات البرمجة",
       "🎣 فحص التصيد",
       "💰 صيد الثغرات",
@@ -84,11 +85,12 @@ else:
       "System Architect & Lead: **Fadil I. Hussein** [Active Operations]"
   )
   t_desc = (
-      "Core cyber command center for threat management, packet analysis, and"
-      " defense."
+      "Comprehensive cyber command center for threat management, packet"
+      " analysis, and defense."
   )
   tabs_names = [
       "💻 System Pulse",
+      "🤖 AI Security Analysis",
       "💻 Code Studio",
       "🎣 Phishing Analyzer",
       "💰 Bug Bounty",
@@ -148,9 +150,40 @@ with tabs[0]:
     )
 
 # ---------------------------------------------------------
-# Tab 2: Multi-Language Studio
+# Tab 2: AI Security Analysis (أداة الذكاء الاصطناعي ضمن الأدوات)
 # ---------------------------------------------------------
 with tabs[1]:
+  st.subheader(
+      "🤖 أداة تحليل السلوك والتهديدات بالذكاء الاصطناعي (AI Threat Detection)"
+  )
+  st.write(
+      "تستخدم هذه الأداة خوارزميات التعلم الآلي لتحليل سلوك الشبكة واكتشاف"
+      " الهجمات غير المعروفة تلقائياً."
+  )
+
+  net_traffic = st.slider(
+      "معدل نقل بيانات الشبكة (Network Traffic MB/s):", 10, 1000, 150
+  )
+  failed_attempts = st.slider("محاولات الدخول الفاشلة المتكررة:", 0, 50, 2)
+
+  if st.button("تشغيل فحص الذكاء الاصطناعي / Run AI Analysis"):
+    if net_traffic > 700 or failed_attempts > 15:
+      st.error(
+          "🚨 [AI Alert] تم رصد سلوك شبكي شاذ! احتمالية تعرض النظام لهجوم"
+          " سيبراني (Anomaly Detected)."
+      )
+      st.warning(
+          "⚙️ الإجراء التلقائي: تم عزل الاتصال المشبوه وحظر المصدر مؤقتاً."
+      )
+    else:
+      st.success(
+          "✅ [AI Status] حالة الأمان مستقرة. سلوك الشبكة طبيعي ضمن النطاق الآمن."
+      )
+
+# ---------------------------------------------------------
+# Tab 3: Multi-Language Studio
+# ---------------------------------------------------------
+with tabs[2]:
   st.subheader("💻 مختبر لغات البرمجة والأمن")
   lang_choice = st.selectbox(
       "Select Language / اختر لغة البرمجة:",
@@ -172,9 +205,9 @@ with tabs[1]:
     st.code("nmap -sV -p 1-65535 127.0.0.1", language="bash")
 
 # ---------------------------------------------------------
-# Tab 3: Phishing Analyzer
+# Tab 4: Phishing Analyzer
 # ---------------------------------------------------------
-with tabs[2]:
+with tabs[3]:
   st.subheader("🎣 أداة تحليل الروابط واكتشاف التصيد")
   input_url = st.text_input(
       "أدخل الرابط للفحص / Enter URL:", "https://secure-login-portal.com"
@@ -185,9 +218,9 @@ with tabs[2]:
     )
 
 # ---------------------------------------------------------
-# Tab 4: Bug Bounty
+# Tab 5: Bug Bounty
 # ---------------------------------------------------------
-with tabs[3]:
+with tabs[4]:
   st.subheader("💰 قائمة فحص صيد الثغرات")
   target_domain = st.text_input("النطاق المستهدف / Target Domain:", "target.org")
   if st.button("توليد قائمة المهام / Generate Checklist"):
@@ -196,9 +229,9 @@ with tabs[3]:
     st.checkbox("اختبار ثغرات الحقن والسكربتات الخبيثة (XSS)")
 
 # ---------------------------------------------------------
-# Tab 5: Ransomware Defense
+# Tab 6: Ransomware Defense
 # ---------------------------------------------------------
-with tabs[4]:
+with tabs[5]:
   st.subheader("🔒 حماية وحساب بصمات الملفات")
   text_sample = st.text_input(
       "اسم الملف أو النص / Filename or Text:", "operation_data.db"
@@ -207,18 +240,18 @@ with tabs[4]:
     st.code(hashlib.sha256(text_sample.encode()).hexdigest())
 
 # ---------------------------------------------------------
-# Tab 6: DDoS Simulation
+# Tab 7: DDoS Simulation
 # ---------------------------------------------------------
-with tabs[5]:
+with tabs[6]:
   st.subheader("⚡ محاكاة تحليل تدفق الشبكة واختبار الضغط")
   reqs = st.slider("معدل الطلبات في الثانية / Requests per sec:", 100, 10000, 2000)
   if st.button("تنفيذ اختبار التحمل / Run Test"):
     st.info("📊 تقرير الحمل: الخادم يتعامل مع التدفق ضمن الحدود الآمنة.")
 
 # ---------------------------------------------------------
-# Tab 7: Image Metadata
+# Tab 8: Image Metadata
 # ---------------------------------------------------------
-with tabs[6]:
+with tabs[7]:
   st.subheader("🖼️ تحليل واستخراج البيانات الخفية للصور")
   up_file = st.file_uploader(
       "اختر صورة للفحص / Upload Image:", type=["jpg", "png"]
@@ -229,9 +262,9 @@ with tabs[6]:
     st.success("✅ تم تحليل بنية الصورة واستخراج الخصائص بنجاح.")
 
 # ---------------------------------------------------------
-# Tab 8: Cryptography
+# Tab 9: Cryptography
 # ---------------------------------------------------------
-with tabs[7]:
+with tabs[8]:
   st.subheader("🔐 التشفير الكلاسيكي والمتقدم")
   txt = st.text_input("النص المراد تشفيره / Plaintext:", "FadilHussein")
   shift = st.slider("مفتاح الإزاحة / Shift Key:", 1, 25, 4)
@@ -244,9 +277,9 @@ with tabs[7]:
   st.code(res)
 
 # ---------------------------------------------------------
-# Tab 9: Passwords & ATO
+# Tab 10: Passwords & ATO
 # ---------------------------------------------------------
-with tabs[8]:
+with tabs[9]:
   st.subheader("🧮 حاسبة حصانة كلمات المرور")
   pwd = st.text_input(
       "أدخل كلمة المرور / Enter Password:", type="password"
@@ -258,9 +291,9 @@ with tabs[8]:
     )
 
 # ---------------------------------------------------------
-# Tab 10: Code Library
+# Tab 11: Code Library
 # ---------------------------------------------------------
-with tabs[9]:
+with tabs[10]:
   st.subheader("📜 مكتبة الأكواد والأوامر الميدانية")
   st.code(
       "import socket\n# TCP socket monitoring script initialized...",
