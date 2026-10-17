@@ -9,14 +9,14 @@ import time
 from PIL import Image
 import streamlit as st
 
-# 1. إعدادات الصفحة والتصميم الاحترافي لغرفة العمليات (SOC Theme)
+# 1. إعدادات الصفحة والتصميم
 st.set_page_config(
     page_title="SOC Operations Center - Fadil I. Hussein",
     page_icon="🛡️",
     layout="wide",
 )
 
-# تخصيص CSS لغرفة عمليات احترافية
+# تخصيص CSS
 soc_theme_css = """
 <style>
 [data-testid="stAppViewContainer"] {
@@ -46,7 +46,7 @@ h1, h2, h3 {
 """
 st.markdown(soc_theme_css, unsafe_allow_html=True)
 
-# 2. القائمة الجانبية واختيار اللغة (Language Selector)
+# 2. القائمة الجانبية واختيار اللغة
 with st.sidebar:
   st.title("🌐 Language / اللغة")
   lang = st.selectbox("اختر لغة العرض / Choose Language:", ["العربية", "English"])
@@ -58,31 +58,8 @@ with st.sidebar:
   st.divider()
   st.caption("🔒 Operations Center Core v7.5")
 
-# نصوص الواجهة بناءً على اللغة المختارة
+# نصوص الواجهة
 if lang == "العربية":
   t_main_title = "🛡️ غرفة عمليات الأمان السيبراني (SOC)"
-  t_subtitle = (
-      "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
-  )
-  t_desc = (
-      "لوحة تحكم سيبرانية متقدمة لإدارة التهديدات، فحص الروابط، وأمان"
-      " المصادقة."
-  )
-  tabs_names = [
-      "💻 نبض النظام",
-      "🤖 تحليل الذكاء الاصطناعي",
-      "🔍 فحص الروابط الشامل",
-      "🔐 أمان المصادقة والجلسات",
-      "💻 لغات البرمجة",
-      "💰 صيد الثغرات",
-      "🔒 برمجيات الفدية",
-      "⚡ ضغط الشبكة",
-      "🖼️ تحليل الصور",
-      "🔐 التشفير",
-      "🧮 حماية الحسابات",
-      "📜 الأكواد الأمنية",
-  ]
-else:
-  t_main_title = "🛡️ Security Operations Center (SOC)"
-  t_subtitle = "System Architect & Lead: **Fadil I. Hussein**"
-  t_desc =
+  t_subtitle = "مهندس النظام والمشرف: **Fadil I. Hussein** [مركز العمليات النشط]"
+  
