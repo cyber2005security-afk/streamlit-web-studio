@@ -68,10 +68,17 @@ tabs = st.tabs(tabs_names)
 
 with tabs[0]:
     st.subheader("معلومات الخادم وحالة النظام")
-    c1, c2, c3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
     start_time = time.time()
     _ = 1 + 1
     latency = round((time.time() - start_time) * 1000, 2)
-    c1.metric("إصدار بايثون", sys.version.split()[0])
-    c2.metric("حالة النظام", "ONLINE [SECURE]")
-    c3.
+    col1.metric("إصدار بايثون", sys.version.split()[0])
+    col2.metric("حالة النظام", "ONLINE [SECURE]")
+    col3.metric("مستوى التشفير", "AES-256")
+
+with tabs[1]:
+    st.subheader("تحليل السلوك والتهديدات بالذكاء الاصطناعي")
+    traffic = st.slider("معدل نقل بيانات الشبكة (MB/s):", 10, 1000, 150)
+    fails = st.slider("محاولات الدخول الفاشلة:", 0, 50, 2)
+    if st.button("تشغيل فحص الذكاء الاصطناعي"):
+        
