@@ -152,4 +152,3 @@ st.caption(
     "Security Operations Center (SOC) © 2026 — Architected by Fadil I. Hussein"
     " 🛡️"
 )
-
